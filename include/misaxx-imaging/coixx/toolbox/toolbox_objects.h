@@ -6,7 +6,7 @@
 #pragma once
 
 #include <misaxx-imaging/coixx/image.h>
-#include <misaxx/utils/math/misc.h>
+#include <misaxx-imaging/utils/misc.h>
 #include <misaxx-imaging/coixx/toolbox/toolbox.h>
 #include <misaxx-imaging/coixx/toolbox/toolbox_morph_cross.h>
 #include <misaxx-imaging/coixx/toolbox/toolbox_recoloring.h>
@@ -126,7 +126,7 @@ namespace coixx::toolbox::objects {
                 for (int x = 0; x < t_img.get_width(); ++x) {
                     if (t_ignore_src_zero && row[x].is_background())
                         continue;
-                    row[x] = misaxx::utils::math::cantor_pairing(row[x], row_other[x]);
+                    row[x] = misaxx_imaging::utils::cantor_pairing(row[x], row_other[x]);
                 }
             }
         };

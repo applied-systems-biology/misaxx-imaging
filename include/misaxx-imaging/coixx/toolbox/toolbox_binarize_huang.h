@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <misaxx/utils/math/thresholding.h>
+#include <misaxx-imaging/utils/thresholding.h>
 #include <opencv2/core/types.hpp>
 #include <misaxx-imaging/coixx/image.h>
 #include <misaxx-imaging/coixx/toolbox/toolbox_binarize.h>
@@ -29,8 +29,6 @@ namespace coixx::toolbox::binarize {
         }
 
         inline double huang_membership(const histogram<colors::mask>&hist, const double mu_0, const double mu_1, const int g, const int threshold) {
-
-            using namespace misaxx::utils::math;
 
             const uchar hist_min = hist.get_min_key();
             const uchar hist_max = hist.get_max_key();
@@ -59,8 +57,6 @@ namespace coixx::toolbox::binarize {
      */
         inline double huang_shannon_fuzzyness(const histogram<colors::mask>&hist, const int threshold, const double mu_0, const double mu_1, const cv::Size t_img_size) {
 
-            using namespace misaxx::utils::math;
-
             const uchar hist_min = hist.get_min_key();
             const uchar hist_max = hist.get_max_key();
             double energy = 0;
@@ -85,8 +81,6 @@ namespace coixx::toolbox::binarize {
          * @return
          */
         inline double huang_yager_fuzzyness(const histogram<colors::mask>&hist, const int threshold, const double mu_0, const double mu_1, const cv::Size t_img_size, const double p = 2) {
-
-            using namespace misaxx::utils::math;
 
             const uchar hist_min = hist.get_min_key();
             const uchar hist_max = hist.get_max_key();
@@ -121,7 +115,6 @@ namespace coixx::toolbox::binarize {
         return [](images::mask &t_img) {
 
             using namespace huang;
-            using namespace misaxx::utils::math;
 
             /**
              * Build the necessary histograms for the calculations
@@ -217,7 +210,6 @@ namespace coixx::toolbox::binarize {
         return [p](images::mask &t_img) {
 
             using namespace huang;
-            using namespace misaxx::utils::math;
 
             /**
         * Build the necessary histograms for the calculations

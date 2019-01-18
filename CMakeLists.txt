@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(misaxx-imaging-core VERSION 0.1.0 DESCRIPTION "MISA++ Imaging Core")
+project(misaxx-imaging VERSION 0.1.0 DESCRIPTION "MISA++ Imaging Core")
 
 find_package(misaxx-core REQUIRED)
 find_package(OpenCV 4 COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
@@ -93,7 +93,7 @@ add_library(misaxx-imaging
         src/misaxx-imaging/coixx/objects/contour.cpp
         src/misaxx-imaging/coixx/margin.cpp
         src/misaxx-imaging/coixx/structuring_element.cpp
-        src/misaxx-imaging/coixx/visualizer_gui.cpp include/misaxx-imaging/utils/percentiles.h)
+        src/misaxx-imaging/coixx/visualizer_gui.cpp include/misaxx-imaging/utils/percentiles.h include/misaxx-imaging/utils/thresholding.h include/misaxx-imaging/utils/misc.h)
 
 misaxx_make_shared(misaxx misaxx-imaging)
 misaxx_add_compiler_warnings(misaxx-imaging)
