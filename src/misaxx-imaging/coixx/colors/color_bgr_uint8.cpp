@@ -10,7 +10,7 @@ const color_bgr_uint8 color_bgr_uint8::default_value = color_bgr_uint8(0, 0, 0);
 const color_bgr_uint8 color_bgr_uint8::first_value = color_bgr_uint8(0, 0, 0);
 const color_bgr_uint8 color_bgr_uint8::last_value = color_bgr_uint8(255, 255, 255);
 
-bool color_bgr_uint8::is_value(const color_bgr_uint8 &value) {
+bool color_bgr_uint8::is_value(const color_bgr_uint8 &) {
     return true;
 }
 

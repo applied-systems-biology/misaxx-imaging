@@ -5,7 +5,7 @@ find_package(misaxx-core REQUIRED)
 find_package(OpenCV 4 COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
 find_package(TIFF REQUIRED)
 
-add_library(misaxx-imaging-core 
+add_library(misaxx-imaging
         include/misaxx-imaging/accessors/misa_image_file.h
         include/misaxx-imaging/accessors/misa_image_stack.h
         include/misaxx-imaging/caches/misa_image_file_cache.h
@@ -95,11 +95,11 @@ add_library(misaxx-imaging-core
         src/misaxx-imaging/coixx/structuring_element.cpp
         src/misaxx-imaging/coixx/visualizer_gui.cpp include/misaxx-imaging/utils/percentiles.h)
 
-misaxx_make_shared(misaxx misaxx-imaging-core)
-misaxx_add_compiler_warnings(misaxx-imaging-core)
+misaxx_make_shared(misaxx misaxx-imaging)
+misaxx_add_compiler_warnings(misaxx-imaging)
 
-target_include_directories(misaxx-imaging-core PUBLIC $<BUILD_INTERFACE:${OpenCV_INCLUDE_DIR}>)
-target_include_directories(misaxx-imaging-core PUBLIC $<BUILD_INTERFACE:${TIFF_INCLUDE_DIR}>)
-target_link_libraries(misaxx-imaging-core PUBLIC ${OpenCV_LIBS}
+target_include_directories(misaxx-imaging PUBLIC $<BUILD_INTERFACE:${OpenCV_INCLUDE_DIR}>)
+target_include_directories(misaxx-imaging PUBLIC $<BUILD_INTERFACE:${TIFF_INCLUDE_DIR}>)
+target_link_libraries(misaxx-imaging PUBLIC ${OpenCV_LIBS}
         ${TIFF_LIBRARIES}
         misaxx::misaxx-core)

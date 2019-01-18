@@ -1,7 +1,0 @@
-@PACKAGE_INIT@
-
-find_package(misaxx-core REQUIRED)
-
-if(NOT TARGET misaxx-imaging-core)
-include(${CMAKE_CURRENT_LIST_DIR}/misaxx-imaging-core-targets.cmake)
-endif()
