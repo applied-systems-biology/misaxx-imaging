@@ -10,14 +10,14 @@ add_library(misaxx-imaging
         include/misaxx-imaging/accessors/misa_image_stack.h
         include/misaxx-imaging/caches/misa_image_file_cache.h
         include/misaxx-imaging/caches/misa_image_stack_cache.h
-        include/misaxx-imaging/patterns/misa_image_file_pattern.h
-        include/misaxx-imaging/patterns/misa_image_file_stack_pattern.h
+        include/misaxx-imaging/patterns/misa_image_pattern.h
+        include/misaxx-imaging/patterns/misa_image_stack_pattern.h
         src/misaxx-imaging/accessors/misa_image_file.cpp
         src/misaxx-imaging/accessors/misa_image_stack.cpp
         src/misaxx-imaging/caches/misa_image_file_cache.cpp
         src/misaxx-imaging/caches/misa_image_stack_cache.cpp
-        src/misaxx-imaging/patterns/misa_image_file_pattern.cpp
-        src/misaxx-imaging/patterns/misa_image_file_stack_pattern.cpp
+        src/misaxx-imaging/patterns/misa_image_pattern.cpp
+        src/misaxx-imaging/patterns/misa_image_stack_pattern.cpp
         include/misaxx-imaging/coixx/margin.h
         include/misaxx-imaging/coixx/pixel_value.h
         include/misaxx-imaging/coixx/colors/color_bgr_uint8.h
@@ -93,7 +93,7 @@ add_library(misaxx-imaging
         src/misaxx-imaging/coixx/objects/contour.cpp
         src/misaxx-imaging/coixx/margin.cpp
         src/misaxx-imaging/coixx/structuring_element.cpp
-        src/misaxx-imaging/coixx/visualizer_gui.cpp include/misaxx-imaging/utils/percentiles.h include/misaxx-imaging/utils/thresholding.h include/misaxx-imaging/utils/misc.h)
+        src/misaxx-imaging/coixx/visualizer_gui.cpp include/misaxx-imaging/utils/percentiles.h include/misaxx-imaging/utils/thresholding.h include/misaxx-imaging/utils/misc.h src/misaxx-imaging/descriptions/misa_image_description.cpp include/misaxx-imaging/descriptions/misa_image_description.h src/misaxx-imaging/descriptions/misa_image_stack_description.cpp include/misaxx-imaging/descriptions/misa_image_stack_description.h)
 
 misaxx_make_shared(misaxx misaxx-imaging)
 misaxx_add_compiler_warnings(misaxx-imaging)

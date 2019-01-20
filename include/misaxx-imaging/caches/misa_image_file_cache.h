@@ -10,9 +10,10 @@
 #include <boost/filesystem/operations.hpp>
 #include <misaxx-imaging/coixx/toolbox/toolbox_io.h>
 #include <misaxx/misa_cache.h>
-#include <misaxx-imaging/patterns/misa_image_file_pattern.h>
-#include <misaxx-imaging/patterns/misa_image_file_stack_pattern.h>
+#include <misaxx-imaging/patterns/misa_image_pattern.h>
+#include <misaxx-imaging/patterns/misa_image_stack_pattern.h>
 #include <misaxx/misa_default_cache.h>
+#include <misaxx-imaging/descriptions/misa_image_description.h>
 
 namespace misaxx_imaging {
 
@@ -21,7 +22,7 @@ namespace misaxx_imaging {
      * @tparam Image
      */
     template<class Image> class misa_image_file_cache : public misaxx::misa_default_cache<misaxx::utils::cache<Image>,
-            misa_image_file_pattern, misaxx::misa_file_description> {
+            misa_image_pattern, misa_image_description> {
     public:
 
         Image &get() override {
@@ -70,7 +71,7 @@ namespace misaxx_imaging {
             }
         }
 
-        void do_link(const misaxx::misa_file_description &t_description) override {
+        void do_link(const misa_image_description &t_description) override {
             if(t_description.filename.empty())
                 throw std::runtime_error("Cannot link to file description with empty file name!");
             m_path = this->get_location() / t_description.filename;
@@ -79,8 +80,11 @@ namespace misaxx_imaging {
 
     protected:
 
-        misaxx::misa_file_description produce_description(const boost::filesystem::path &t_location, const misa_image_file_pattern &t_pattern) override {
-            return t_pattern.produce(t_location);
+        misa_image_description produce_description(const boost::filesystem::path &t_location, const misa_image_pattern &t_pattern) override {
+            auto image = t_pattern.produce(t_location);
+            misa_image_description result;
+            result.filename = std::move(image.filename);
+            return result;
         }
 
     private:

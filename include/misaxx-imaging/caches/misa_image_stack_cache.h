@@ -8,10 +8,11 @@
 #include <misaxx-imaging/coixx/image.h>
 #include <misaxx/descriptions/misa_file_stack_description.h>
 #include <misaxx/patterns/misa_file_stack_pattern.h>
-#include <misaxx-imaging/patterns/misa_image_file_stack_pattern.h>
+#include <misaxx-imaging/patterns/misa_image_stack_pattern.h>
 #include <misaxx/misa_cache.h>
 #include <misaxx-imaging/accessors/misa_image_file.h>
 #include <misaxx/misa_default_cache.h>
+#include <misaxx-imaging/descriptions/misa_image_stack_description.h>
 
 namespace misaxx_imaging {
 
@@ -24,11 +25,12 @@ namespace misaxx_imaging {
      * Simple stack of images of cv::Mat or any of coixx::image<T>
      * @tparam Image
      */
-    template<class Image> struct misa_image_stack_cache : public misaxx::misa_default_cache<misaxx::utils::memory_cache<misa_image_stack_t<Image>>, misa_image_file_stack_pattern, misaxx::misa_file_stack_description> {
+    template<class Image> struct misa_image_stack_cache : public misaxx::misa_default_cache<misaxx::utils::memory_cache<misa_image_stack_t<Image>>,
+    misa_image_stack_pattern, misa_image_stack_description> {
 
         using image_type = Image;
 
-        void do_link(const misaxx::misa_file_stack_description &t_description) override {
+        void do_link(const misa_image_stack_description &t_description) override {
             auto &files = this->get();
             for(const auto &kv : t_description.files) {
                 misa_image_file<Image> cache;
@@ -41,8 +43,11 @@ namespace misaxx_imaging {
 
     protected:
 
-        misaxx::misa_file_stack_description produce_description(const boost::filesystem::path &t_location, const misa_image_file_stack_pattern &t_pattern) override {
-            return t_pattern.produce(t_location);
+        misa_image_stack_description produce_description(const boost::filesystem::path &t_location, const misa_image_stack_pattern &t_pattern) override {
+            auto stack = t_pattern.produce(t_location);
+            misa_image_stack_description result;
+            result.files = std::move(stack.files);
+            return result;
         }
 
     };
