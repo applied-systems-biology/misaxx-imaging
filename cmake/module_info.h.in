@@ -1,8 +1,8 @@
 #pragma once
-#include <misaxx/misa_mutable_module_info.h>
-#include <misaxx/module_info.h>
+#include <misaxx/core/misa_mutable_module_info.h>
+#include <misaxx/core/module_info.h>
 
-namespace misaxx_imaging {
+namespace misaxx::imaging {
     inline misaxx::misa_module_info module_info() {
         misaxx::misa_mutable_module_info info;
         info.set_name("@PROJECT_NAME@");
