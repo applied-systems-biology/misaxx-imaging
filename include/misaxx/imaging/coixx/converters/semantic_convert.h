@@ -123,7 +123,7 @@ namespace coixx::converters {
          * @return
          */
         static colors::hsv8u color(const colors::bgr8u &t_color) {
-            cv::Mat input(1, 1, CV_8UC3, t_color);
+            cv::Mat input(1, 1, CV_8UC3, t_color.as_scalar());
             cv::Mat output(1, 1, CV_8UC3);
 
             cv::cvtColor(input, output, cv::COLOR_BGR2HSV);
@@ -152,7 +152,7 @@ namespace coixx::converters {
          * @return
          */
         static colors::bgr8u color(const colors::hsv8u &t_color) {
-            cv::Mat input(1, 1, CV_8UC3, t_color);
+            cv::Mat input(1, 1, CV_8UC3, t_color.as_scalar());
             cv::Mat output(1, 1, CV_8UC3);
 
             cv::cvtColor(input, output, cv::COLOR_HSV2BGR);
