@@ -45,6 +45,19 @@ namespace misaxx::imaging {
             return this->data->get().at(t_name);
         }
 
+        size_t size() const {
+            return this->data->get().size();
+        }
+
+        std::vector<std::string> get_filenames() const {
+            std::vector<std::string> result;
+            result.reserve(size());
+            for(const auto &kv : *this) {
+                result.push_back(kv.first);
+            }
+            return result;
+        }
+
         /**
          * Returns true if there are no images in this stack
          * @return
