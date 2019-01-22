@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <memory>
 #include <opencv2/opencv.hpp>
 #include <misaxx/imaging/coixx/colors/color_bgr_uint8.h>
 #include <misaxx/imaging/coixx/colors/color_hsv_uint8.h>
