@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <opencv2/ximgproc/slic.hpp>
+#include <opencv2/ximgproc.hpp>
 
 namespace coixx {
 

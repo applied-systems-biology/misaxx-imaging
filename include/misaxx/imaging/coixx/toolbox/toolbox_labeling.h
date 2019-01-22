@@ -8,6 +8,8 @@
 #include <misaxx/imaging/coixx/image.h>
 #include <misaxx/core/utils/ref.h>
 #include <misaxx/imaging/coixx/converters/semantic_convert.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc.hpp>
 
 namespace coixx::toolbox::labeling {
 

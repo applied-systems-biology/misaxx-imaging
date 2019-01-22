@@ -72,7 +72,7 @@ namespace coixx::toolbox::text {
                         t_location,
                         t_typeface.get_opencv_font(),
                         t_typeface.font_scale,
-                        t_color,
+                        t_color.as_scalar(),
                         t_typeface.line_thickness);
         };
     }

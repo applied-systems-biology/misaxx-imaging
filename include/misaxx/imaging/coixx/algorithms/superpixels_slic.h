@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <opencv2/ximgproc/slic.hpp>
+#include <opencv2/ximgproc.hpp>
 #include <misaxx/imaging/coixx/image.h>
 #include <misaxx/imaging/coixx/algorithms/superpixels_slic_algorithm.h>
 
