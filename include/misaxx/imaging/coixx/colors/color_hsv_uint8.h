@@ -17,6 +17,14 @@ namespace coixx {
 
         using pixel_value<uchar, 3>::pixel_value;
 
+        /**
+         * Converts into OpenCV vec
+         * @return
+         */
+        inline operator cv::Vec<uchar, 1>() {
+            return *this;
+        }
+
         static const color_hsv_uint8 first_value;
         static const color_hsv_uint8 default_value;
         static const color_hsv_uint8 last_value;

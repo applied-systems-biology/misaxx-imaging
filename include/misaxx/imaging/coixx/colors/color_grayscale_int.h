@@ -16,6 +16,14 @@ namespace coixx {
 
         using pixel_value<ChannelType, 1>::pixel_value;
 
+        /**
+         * Converts into OpenCV vec
+         * @return
+         */
+        inline operator cv::Vec<ChannelType, 1>() {
+            return *this;
+        }
+
         explicit operator double() const {
             return this->value;
         }

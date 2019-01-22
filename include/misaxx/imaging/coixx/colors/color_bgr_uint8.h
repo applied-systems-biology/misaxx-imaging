@@ -42,6 +42,14 @@ namespace coixx {
         explicit color_bgr_uint8(const std::string &t_hex);
 
         /**
+         * Converts into OpenCV vec
+         * @return
+         */
+        inline operator cv::Vec<uchar, 3>() {
+            return *this;
+        }
+
+        /**
         * Converts the color to a hex string #RRGGBB
         * @return
         */

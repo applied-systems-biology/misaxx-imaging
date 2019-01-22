@@ -15,6 +15,14 @@ namespace coixx {
 
         using pixel_value<ChannelType, 1>::pixel_value;
 
+        /**
+         * Converts into OpenCV vec
+         * @return
+         */
+        inline operator cv::Vec<ChannelType, 1>() {
+            return *this;
+        }
+
         static bool is_value(const pixel_value<ChannelType, 1> &value) {
             return true;
         }
