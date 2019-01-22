@@ -6,7 +6,7 @@
 #pragma once
 
 #include <misaxx/imaging/utils/thresholding.h>
-#include <opencv2/core/types.hpp>
+#include <opencv2/opencv.hpp>
 #include <misaxx/imaging/coixx/image.h>
 #include <misaxx/imaging/coixx/toolbox/toolbox_binarize.h>
 #include <misaxx/imaging/coixx/cumulative_histogram.h>

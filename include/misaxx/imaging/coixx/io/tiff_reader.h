@@ -7,7 +7,7 @@
 
 #include <string>
 #include <memory>
-#include <opencv2/core/types.hpp>
+#include <opencv2/opencv.hpp>
 
 struct tiff;
 
