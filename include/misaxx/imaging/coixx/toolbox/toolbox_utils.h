@@ -7,6 +7,7 @@
 
 #include <string>
 #include <misaxx/imaging/coixx/toolbox/toolbox.h>
+#include <opencv2/highgui.hpp>
 
 namespace coixx::toolbox {
 
