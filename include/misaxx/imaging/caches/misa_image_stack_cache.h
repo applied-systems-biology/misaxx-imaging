@@ -33,8 +33,10 @@ namespace misaxx::imaging {
         void do_link(const misa_image_stack_description &t_description) override {
             auto &files = this->get();
             for(const auto &kv : t_description.files) {
+                misa_image_description description;
+                description.filename = kv.second.filename;
                 misa_image_file<Image> cache;
-                cache.suggest_link(this->get_location(), misaxx::misa_description_storage::with(kv.second)); // We link manually with the loaded description
+                cache.suggest_link(this->get_location(), misaxx::misa_description_storage::with(std::move(description))); // We link manually with the loaded description
                 files.insert({ kv.first, cache });
             }
 
