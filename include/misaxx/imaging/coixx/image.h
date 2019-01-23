@@ -104,8 +104,8 @@ namespace coixx {
         image<C> clone(bool with_buffer = false) const {
             image<C> result;
             result.get_image() = this->get_image().clone();
-            if(with_buffer && this->m_buffer_image) {
-                result.m_buffer_image = std::make_unique<image<C>>(this->m_buffer_image.get()->clone(with_buffer));
+            if(with_buffer && !this->m_buffer_image.empty()) {
+                result.m_buffer_image = this->m_buffer_image.clone();
             }
 
             return result;
@@ -191,32 +191,28 @@ namespace coixx {
          * Gets a buffer image
          * @return
          */
-        image<C> &get_image_buffer() {
-            ensure_buffer_image();
-            return *m_buffer_image;
+        image<C> get_image_buffer() {
+            if(m_buffer_image.empty()) {
+                m_buffer_image = cv::Mat(m_img.rows, m_img.cols, m_img.type());
+            }
+            return image<C>(m_buffer_image);
         }
 
         /**
          * Swaps the buffer image with the unbuffered image
          */
         void apply_buffer() {
-            std::swap(m_buffer_image->get_image(), this->get_image());
-        }
-
-        /**
-         * If the buffer image does not exist, create it
-         */
-        void ensure_buffer_image() {
-            if(!m_buffer_image) {
-                m_buffer_image = std::make_unique<image<C>>(get_size(), C(C::default_value));
+            if(m_buffer_image.empty()) {
+                m_buffer_image = cv::Mat(m_img.rows, m_img.cols, m_img.type());
             }
+            std::swap(m_img, m_buffer_image);
         }
 
         /**
          * Deletes the buffer image
          */
         void clear_buffer() {
-            m_buffer_image = nullptr;
+            m_buffer_image.release();
         }
 
         /**
@@ -256,7 +252,7 @@ namespace coixx {
     private:
 
         cv::Mat m_img;
-        std::shared_ptr<image<C>> m_buffer_image;
+        cv::Mat m_buffer_image;
 
     };
 }
