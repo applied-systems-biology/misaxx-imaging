@@ -20,11 +20,11 @@ namespace coixx::toolbox::values {
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
 
             if constexpr(traits::is_integral_grayscale_image(t_img)) {
-                cv::bitwise_not(t_img.get_image(), t_img.get_image_buffer().get_image());
-                t_img.apply_buffer();
+                cv::bitwise_not(t_img.get_mat(), t_img.get_buffer_mat());
+                std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             }
             else {
-                t_img.get_image() = image_t::color_type::last_value.as_vec() - t_img.get_image();
+                t_img.get_mat() = image_t::color_type::last_value.as_vec() - t_img.get_mat();
             }
         };
     }
@@ -39,7 +39,7 @@ namespace coixx::toolbox::values {
         return[&](auto &t_img) {
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
             static_assert(std::is_same<typename image_t::color_type, C>::value, "The provided color and the image color are different!");
-            images::raw &raw_image = t_img.get_image();
+            images::raw &raw_image = t_img.get_mat();
             raw_image.setTo(t_color.as_vec());
         };
     }
@@ -83,7 +83,7 @@ namespace coixx::toolbox::values {
         return[&](auto &t_img) {
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
             static_assert(std::is_same<typename image_t::color_type, C>::value, "The provided color and the image color are different!");
-            images::raw &raw_image = t_img.get_image();
+            images::raw &raw_image = t_img.get_mat();
 
             if(t_img.get_size() != t_mask.get_size()) {
                 throw std::runtime_error("Mask and image must have same size!");
@@ -91,7 +91,7 @@ namespace coixx::toolbox::values {
             if(raw_image.type() != t_img.get_open_cv_type()) {
                 throw std::runtime_error("Not same type!");
             }
-            raw_image.setTo(t_color.as_vec(), t_mask.get_image());
+            raw_image.setTo(t_color.as_vec(), t_mask.get_mat());
         };
     }
 

@@ -54,17 +54,17 @@ namespace coixx::toolbox::blob {
 
             // Get derivations in each direction
             t_img << edge::sobel(2, 0);
-            images::raw dxx = t_img.get_image().clone();
-            t_img.apply_buffer();
+            images::raw dxx = t_img.get_mat().clone();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             t_img << edge::sobel(0, 2);
-            images::raw dyy = t_img.get_image().clone();
-            t_img.apply_buffer();
+            images::raw dyy = t_img.get_mat().clone();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             t_img << edge::sobel(1, 1);
-            images::raw dxy = t_img.get_image().clone();
-            t_img.apply_buffer(); // Back to original image
+            images::raw dxy = t_img.get_mat().clone();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat()); // Back to original image
 
-            t_img.get_image_buffer().get_image() = pow(t_sigma, 2) * (dxx.mul(dyy) - dxy.mul(dxy));
-            t_img.apply_buffer();
+            t_img.get_buffer_mat() = pow(t_sigma, 2) * (dxx.mul(dyy) - dxy.mul(dxy));
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
 
         };
     }
@@ -84,8 +84,8 @@ namespace coixx::toolbox::blob {
 
             const int kernel_size = static_cast<int>(6 * t_sigma);
             const auto kernel = laplacian_of_gaussian_kernel<color_type>(kernel_size, t_sigma, t_normalize);
-            cv::filter2D(t_img.get_image(), t_img.get_image_buffer().get_image(), t_img.get_open_cv_type(), kernel.get_image());
-            t_img.apply_buffer();
+            cv::filter2D(t_img.get_mat(), t_img.get_buffer_mat(), t_img.get_open_cv_type(), kernel.get_mat());
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 

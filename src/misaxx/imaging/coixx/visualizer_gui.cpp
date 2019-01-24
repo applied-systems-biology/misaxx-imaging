@@ -47,7 +47,7 @@ visualizer_gui::window::window(visualizer_gui &gui) : m_images(std::move(gui.m_i
 void visualizer_gui::window::switch_to(size_t index) {
     if (index >= m_images.size())
         throw std::runtime_error("Image index out of range!");
-    cv::imshow(m_window_name, m_images[index].get_image());
+    cv::imshow(m_window_name, m_images[index].get_mat());
     cv::setWindowTitle(m_window_name, m_image_names[index]);
 }
 

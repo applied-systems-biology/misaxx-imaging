@@ -32,8 +32,8 @@ namespace coixx::toolbox::compose {
                 }
             }
             else {
-                images::raw &raw = t_img.get_image();
-                raw.setTo(t_other.get_image(), t_mask.get_image());
+                images::raw &raw = t_img.get_mat();
+                raw.setTo(t_other.get_mat(), t_mask.get_mat());
             }
         };
     }
@@ -62,8 +62,8 @@ namespace coixx::toolbox::compose {
     template<class C> inline auto blend_with(const image<C> &t_other, double t_alpha) {
         return [&t_other,t_alpha](image<C> &t_img) {
             assert_same_size(t_img, t_other);
-            cv::addWeighted(t_img.get_image(), t_alpha, t_other.get_image(), 1.0 - t_alpha, 0.0, t_img.get_image_buffer().get_image());
-            t_img.apply_buffer();
+            cv::addWeighted(t_img.get_mat(), t_alpha, t_other.get_mat(), 1.0 - t_alpha, 0.0, t_img.get_buffer_mat());
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -80,11 +80,11 @@ namespace coixx::toolbox::compose {
             static_assert(traits::is_grayscale(t_img), "Only grayscale images are allowed!");
             static_assert(traits::is_same<image<C>>(t_img), "Image types are different!");
 
-            for (int y = 0; y < t_img.get_image().rows; ++y) {
+            for (int y = 0; y < t_img.get_mat().rows; ++y) {
                 const auto *row_other = t_other.row_ptr(y);
                 auto *row = t_img.row_ptr(y);
 
-                for (int x = 0; x < t_img.get_image().cols; ++x) {
+                for (int x = 0; x < t_img.get_mat().cols; ++x) {
                     row[x] = t_function(row[x], row_other[x]);
                 }
             }

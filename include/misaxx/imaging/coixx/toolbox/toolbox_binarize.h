@@ -24,8 +24,8 @@ namespace coixx::toolbox::binarize {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(traits::is_compatible<C>(t_img), "Image types do not match");
 
-            cv::threshold(t_img.get_image(), t_img.get_image_buffer().get_image(), t_threshold, t_target, cv::THRESH_BINARY);
-            t_img.apply_buffer();
+            cv::threshold(t_img.get_mat(), t_img.get_buffer_mat(), t_threshold, t_target, cv::THRESH_BINARY);
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -36,8 +36,8 @@ namespace coixx::toolbox::binarize {
      */
     inline auto otsu(const misaxx::utils::ref<uchar> &t_threshold = std::nullopt ) {
         return [&t_threshold](images::mask &t_img) {
-            double t = cv::threshold(t_img.get_image(), t_img.get_image_buffer().get_image(), 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
-            t_img.apply_buffer();
+            double t = cv::threshold(t_img.get_mat(), t_img.get_buffer_mat(), 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             misaxx::utils::try_assign_ref(t_threshold, static_cast<uchar>(t));
         };
     }

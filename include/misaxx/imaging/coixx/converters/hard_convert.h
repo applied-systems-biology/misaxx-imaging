@@ -40,7 +40,7 @@ namespace coixx::converters {
          * @param t_dst
          */
         static void image(const image<Csrc> &t_src, image<Cdst> &t_dst) {
-            t_src.get_image().convertTo(t_dst.get_image(), t_dst.get_open_cv_type(), 1);
+            t_src.get_mat().convertTo(t_dst.get_mat(), t_dst.get_open_cv_type(), 1);
         }
     };
 

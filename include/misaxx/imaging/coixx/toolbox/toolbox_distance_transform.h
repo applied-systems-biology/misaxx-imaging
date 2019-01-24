@@ -38,7 +38,7 @@ namespace coixx::toolbox::distance_transform {
      */
     inline images::grayscale_float distance_transform(const images::mask &t_img, distance_type t_distance_type = distance_type::dist_l2, mask_size t_mask_size = mask_size::mask_3) {
         images::grayscale_float result(t_img.get_size());
-        cv::distanceTransform(t_img.get_image(), result.get_image(), static_cast<int>(t_distance_type), static_cast<int>(t_mask_size), result.get_open_cv_type());
+        cv::distanceTransform(t_img.get_mat(), result.get_mat(), static_cast<int>(t_distance_type), static_cast<int>(t_mask_size), result.get_open_cv_type());
         return result;
     }
 
@@ -53,9 +53,9 @@ namespace coixx::toolbox::distance_transform {
         distance_transform_result result;
         result.distances = images::grayscale_float(t_img.get_size());
         result.voronoi_labels = images::grayscale32s(t_img.get_size());
-        cv::distanceTransform(t_img.get_image(),
-                              result.distances.get_image(),
-                              result.voronoi_labels.get_image(),
+        cv::distanceTransform(t_img.get_mat(),
+                              result.distances.get_mat(),
+                              result.voronoi_labels.get_mat(),
                               static_cast<int>(t_distance_type),
                               static_cast<int>(t_mask_size));
         return result;

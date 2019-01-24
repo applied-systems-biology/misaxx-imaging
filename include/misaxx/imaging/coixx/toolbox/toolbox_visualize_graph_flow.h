@@ -38,23 +38,23 @@ namespace coixx::toolbox::visualize {
                 const int w = row[x - 1];
 
                 if(n != current) {
-                    const double perimeter = t_neighboring_perimeter.get_image().at<double>(current, n);
-                    const double edginess = t_neighboring_edginess.get_image().at<double>(current, n);
+                    const double perimeter = t_neighboring_perimeter.get_mat().at<double>(current, n);
+                    const double edginess = t_neighboring_edginess.get_mat().at<double>(current, n);
                     row_vis[x] = static_cast<float>(perimeter - edginess);
                 }
                 else if(s != current) {
-                    const double perimeter = t_neighboring_perimeter.get_image().at<double>(current, s);
-                    const double edginess = t_neighboring_edginess.get_image().at<double>(current, s);
+                    const double perimeter = t_neighboring_perimeter.get_mat().at<double>(current, s);
+                    const double edginess = t_neighboring_edginess.get_mat().at<double>(current, s);
                     row_vis[x] = static_cast<float>(perimeter - edginess);
                 }
                 else if(e != current) {
-                    const double perimeter = t_neighboring_perimeter.get_image().at<double>(current, e);
-                    const double edginess = t_neighboring_edginess.get_image().at<double>(current, e);
+                    const double perimeter = t_neighboring_perimeter.get_mat().at<double>(current, e);
+                    const double edginess = t_neighboring_edginess.get_mat().at<double>(current, e);
                     row_vis[x] = static_cast<float>(perimeter - edginess);
                 }
                 else if(w != current) {
-                    const double perimeter = t_neighboring_perimeter.get_image().at<double>(current, w);
-                    const double edginess = t_neighboring_edginess.get_image().at<double>(current, w);
+                    const double perimeter = t_neighboring_perimeter.get_mat().at<double>(current, w);
+                    const double edginess = t_neighboring_edginess.get_mat().at<double>(current, w);
                     row_vis[x] = static_cast<float>(perimeter - edginess);
                 }
             }

@@ -21,31 +21,32 @@ namespace coixx::toolbox::generic {
         return [=](auto &t_img) {
 
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
+            using color_type = typename image_t::color_type;
 
             static_assert(traits::is_grayscale(t_img), "Only grayscale images are supported");
             static_assert(traits::is_same<image<C>>(t_img), "Image type and color type do not match!");
 
             for (int y = 0; y < t_img.get_height(); ++y) {
 
-                const auto *row_src_last = y > 0 ? t_img.row_ptr(y - 1) : nullptr;
-                const auto *row_src = t_img.row_ptr(y);
-                const auto *row_src_next =  y - 1 < t_img.get_height() ? t_img.row_ptr(y + 1) : nullptr;
-                auto *row_dst = t_img.get_image_buffer().row_ptr(y);
+                const color_type *row_src_last = y > 0 ? t_img.row_ptr(y - 1) : nullptr;
+                const color_type *row_src = t_img.row_ptr(y);
+                const color_type *row_src_next =  y - 1 < t_img.get_height() ? t_img.row_ptr(y + 1) : nullptr;
+                color_type *row_dst = t_img.get_buffer_mat().template ptr<color_type>(y);
 
                 for (int x = 0; x < t_img.get_width(); ++x) {
 
-                    const auto c = row_src[x];
-                    const auto n = (y >= 1) ? row_src_last[x] : c;
-                    const auto s = (y <= t_img.get_image().rows - 2) ? row_src_next[x] : c;
-                    const auto e = (x <= t_img.get_image().cols - 2) ? row_src[x + 1] : c;
-                    const auto w = (x >= 1) ? row_src[x - 1] : c;
+                    const color_type c = row_src[x];
+                    const color_type n = (y >= 1) ? row_src_last[x] : c;
+                    const color_type s = (y <= t_img.get_mat().rows - 2) ? row_src_next[x] : c;
+                    const color_type e = (x <= t_img.get_mat().cols - 2) ? row_src[x + 1] : c;
+                    const color_type w = (x >= 1) ? row_src[x - 1] : c;
 
                     // Calculate like this to prevent overflows
                     row_dst[x] = t_function(c, n, s, e, w);
                 }
             }
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 

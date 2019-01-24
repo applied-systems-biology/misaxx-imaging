@@ -67,7 +67,7 @@ namespace coixx::toolbox::text {
     template<class C> auto draw_text(const std::string &t_text, const typeface &t_typeface, const cv::Point &t_location, const C&t_color) {
         return [&](auto &t_img) {
             static_assert(traits::is_compatible<C>(t_img), "Text and image color must match!");
-            cv::putText(t_img.get_image(),
+            cv::putText(t_img.get_mat(),
                         t_text,
                         t_location,
                         t_typeface.get_opencv_font(),

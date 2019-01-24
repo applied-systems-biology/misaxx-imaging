@@ -22,8 +22,8 @@ namespace coixx::toolbox::blur {
         return [=](auto &t_img) {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
 
-            cv::GaussianBlur(t_img.get_image(), t_img.get_image_buffer().get_image(), cv::Size(0, 0), t_sigma_x, t_sigma_y);
-            t_img.apply_buffer();
+            cv::GaussianBlur(t_img.get_mat(), t_img.get_buffer_mat(), cv::Size(0, 0), t_sigma_x, t_sigma_y);
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -46,8 +46,8 @@ namespace coixx::toolbox::blur {
         return [=](auto &t_img) {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
 
-            cv::blur(t_img.get_image(), t_img.get_image_buffer().get_image(),cv::Size(t_size_x,  t_size_y));
-            t_img.apply_buffer();
+            cv::blur(t_img.get_mat(), t_img.get_buffer_mat(),cv::Size(t_size_x,  t_size_y));
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -71,8 +71,8 @@ namespace coixx::toolbox::blur {
             static_assert(!traits::is_same<images::grayscale32s>(t_img), "Integer images are not supported!");
             if(t_size % 2 == 0) throw std::runtime_error("The size must be odd!");
 
-            cv::medianBlur(t_img.get_image(), t_img.get_image_buffer().get_image(),t_size);
-            t_img.apply_buffer();
+            cv::medianBlur(t_img.get_mat(), t_img.get_buffer_mat(),t_size);
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -97,7 +97,7 @@ namespace coixx::toolbox::blur {
 //                const auto *row = t_img.row_ptr(y);
 //                const auto *row_prev = y > 0 ? t_img.row_ptr(y - 1) : nullptr;
 //                const auto *row_next = y + 1 < t_img.get_height() ? t_img.row_ptr(y + 1) : nullptr;
-//                auto *row_target = t_img.get_image_buffer().get_image().template ptr<raw_type>(y);
+//                auto *row_target = t_img.get_buffer_mat().template ptr<raw_type>(y);
 //
 //                for(int x = 0; x < t_img.get_width(); ++x) {
 //

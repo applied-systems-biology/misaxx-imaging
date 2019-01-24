@@ -244,7 +244,7 @@ namespace coixx::toolbox::visualization {
             for(int x = 0; x < t_reference.get_width(); ++x) {
                 const auto radius = static_cast<int>(row_size[x]);
                 if(radius > 0) {
-                    cv::circle(output.get_image(), cv::Point(x, y), radius, t_color.as_scalar());
+                    cv::circle(output.get_mat(), cv::Point(x, y), radius, t_color.as_scalar());
                 }
             }
         }

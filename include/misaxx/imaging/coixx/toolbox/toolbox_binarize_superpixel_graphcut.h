@@ -42,24 +42,24 @@ namespace coixx::toolbox::binarize::superpixel {
                 const int w = row[x - 1];
 
                 if(n != current) {
-                    t_neighbor_edges.get_image().at<uchar>(current, n) = 255;
-                    t_neighboring_perimeter.get_image().at<double>(current, n) += 1;
-                    t_neighboring_edginess.get_image().at<double>(current, n) += row_edge[x];
+                    t_neighbor_edges.get_mat().at<uchar>(current, n) = 255;
+                    t_neighboring_perimeter.get_mat().at<double>(current, n) += 1;
+                    t_neighboring_edginess.get_mat().at<double>(current, n) += row_edge[x];
                 }
                 if(s != current) {
-                    t_neighbor_edges.get_image().at<uchar>(current, s) = 255;
-                    t_neighboring_perimeter.get_image().at<double>(current, s) += 1;
-                    t_neighboring_edginess.get_image().at<double>(current, s) += row_edge[x];
+                    t_neighbor_edges.get_mat().at<uchar>(current, s) = 255;
+                    t_neighboring_perimeter.get_mat().at<double>(current, s) += 1;
+                    t_neighboring_edginess.get_mat().at<double>(current, s) += row_edge[x];
                 }
                 if(e != current) {
-                    t_neighbor_edges.get_image().at<uchar>(current, e) = 255;
-                    t_neighboring_perimeter.get_image().at<double>(current, e) += 1;
-                    t_neighboring_edginess.get_image().at<double>(current, e) += row_edge[x];
+                    t_neighbor_edges.get_mat().at<uchar>(current, e) = 255;
+                    t_neighboring_perimeter.get_mat().at<double>(current, e) += 1;
+                    t_neighboring_edginess.get_mat().at<double>(current, e) += row_edge[x];
                 }
                 if(w != current) {
-                    t_neighbor_edges.get_image().at<uchar>(current, w) = 255;
-                    t_neighboring_perimeter.get_image().at<double>(current, w) += 1;
-                    t_neighboring_edginess.get_image().at<double>(current, w) += row_edge[x];
+                    t_neighbor_edges.get_mat().at<uchar>(current, w) = 255;
+                    t_neighboring_perimeter.get_mat().at<double>(current, w) += 1;
+                    t_neighboring_edginess.get_mat().at<double>(current, w) += row_edge[x];
                 }
             }
         }
@@ -149,8 +149,8 @@ namespace coixx::toolbox::binarize::superpixel {
 //
 //                if(is_connected) {
 //
-//                    const double perimeter = neighboring_perimeter.get_image().at<double>(label, other_label);
-//                    const double edginess = neighboring_edginess.get_image().at<double>(label, other_label);
+//                    const double perimeter = neighboring_perimeter.get_mat().at<double>(label, other_label);
+//                    const double edginess = neighboring_edginess.get_mat().at<double>(label, other_label);
 //
 //                    double bg = perimeter - edginess;
 //                    graph.add_edge(label, other_label, bg, bg);
@@ -235,13 +235,13 @@ namespace coixx::toolbox::binarize::superpixel {
 //                const int w = row[x - 1];
 //
 //                if(n != current)
-//                    neighbor_edges.get_image().at<uchar>(current, n) = 255;
+//                    neighbor_edges.get_mat().at<uchar>(current, n) = 255;
 //                if(s != current)
-//                    neighbor_edges.get_image().at<uchar>(current, s) = 255;
+//                    neighbor_edges.get_mat().at<uchar>(current, s) = 255;
 //                if(e != current)
-//                    neighbor_edges.get_image().at<uchar>(current, e) = 255;
+//                    neighbor_edges.get_mat().at<uchar>(current, e) = 255;
 //                if(w != current)
-//                    neighbor_edges.get_image().at<uchar>(current, w) = 255;
+//                    neighbor_edges.get_mat().at<uchar>(current, w) = 255;
 //            }
 //        }
 //

@@ -68,7 +68,7 @@ namespace coixx::io {
     template<> struct image_io<colors::grayscale8u > {
         static void save(const images::grayscale8u &t_img, const path& t_filename) {
             // We can use OpenCV's native save feature
-            cv::imwrite(t_filename.string(), t_img.get_image());
+            cv::imwrite(t_filename.string(), t_img.get_mat());
         }
 
         static images::grayscale8u load(const path& t_filename) {
@@ -87,7 +87,7 @@ namespace coixx::io {
     template<> struct image_io<colors::grayscale16u > {
         static void save(const images::grayscale16u &t_img, const path& t_filename) {
             // We can use OpenCV's native save feature
-            cv::imwrite(t_filename.string(), t_img.get_image());
+            cv::imwrite(t_filename.string(), t_img.get_mat());
         }
 
         static images::grayscale16u load(const path& t_filename) {
@@ -110,7 +110,7 @@ namespace coixx::io {
     template<> struct image_io<colors::bgr8u > {
         static void save(const images::bgr8u &t_img, const path& t_filename) {
             // We can use OpenCV's native save feature
-            cv::imwrite(t_filename.string(), t_img.get_image());
+            cv::imwrite(t_filename.string(), t_img.get_mat());
         }
 
         static images::bgr8u load(const path& t_filename) {
@@ -135,7 +135,7 @@ namespace coixx::io {
 
             tiff_writer tif(t_filename.string(), t_img.get_size(), 1, 32, 2); // SAMPLEFORMAT_INT = 2
 
-            for (int y = 0; y < t_img.get_image().rows; ++y)
+            for (int y = 0; y < t_img.get_mat().rows; ++y)
             {
                 const colors::grayscale32s *row = t_img.row_ptr(y);
                 tif.write_row(row, static_cast<unsigned int>(y));
@@ -158,7 +158,7 @@ namespace coixx::io {
 
             for (unsigned int y = 0; y < image_height; ++y)
             {
-                auto *row = result.get_image().ptr<float>(static_cast<int>(y));
+                auto *row = result.get_mat().ptr<float>(static_cast<int>(y));
                 tif.read_row(row, y);
             }
 
@@ -177,7 +177,7 @@ namespace coixx::io {
 
             tiff_writer tif(t_filename.string(), t_img.get_size(), 1, 32, 3); // SAMPLEFORMAT_IEEEFP = 3
 
-            for (int y = 0; y < t_img.get_image().rows; ++y)
+            for (int y = 0; y < t_img.get_mat().rows; ++y)
             {
                 const colors::grayscale32f *row =t_img.row_ptr(y);
                 tif.write_row(row, static_cast<unsigned int>(y));
@@ -200,7 +200,7 @@ namespace coixx::io {
 
             for (unsigned int y = 0; y < image_height; ++y)
             {
-                auto *row = result.get_image().ptr<float>(static_cast<int>(y));
+                auto *row = result.get_mat().ptr<float>(static_cast<int>(y));
                 tif.read_row(row, y);
             }
 

@@ -30,8 +30,8 @@ namespace coixx::toolbox::labeling {
 
         image<C> output = image<C>::allocate(t_mask.get_size());
 
-        int count = cv::connectedComponents(t_mask.get_image(),
-                                            output.get_image(),
+        int count = cv::connectedComponents(t_mask.get_mat(),
+                                            output.get_mat(),
                                             static_cast<int>(t_connectivity),
                                             C::opencv_type);
 
@@ -109,7 +109,7 @@ namespace coixx::toolbox::labeling {
                 else if(row_radius[x] > 1) {
                     ++label;
                     const auto radius = static_cast<int>(row_radius[x]);
-                    cv::circle(output.get_image(), cv::Point(x, y), radius, static_cast<typename C::raw_type>(label), -1);
+                    cv::circle(output.get_mat(), cv::Point(x, y), radius, static_cast<typename C::raw_type>(label), -1);
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace coixx::toolbox::labeling {
                     row_mask[x] = colors::mask::foreground();
                 }
                 else if(radius > 1) {
-                    cv::circle(mask.get_image(), cv::Point(x, y), radius, 255, -1);
+                    cv::circle(mask.get_mat(), cv::Point(x, y), radius, 255, -1);
                 }
             }
         }
@@ -161,11 +161,11 @@ namespace coixx::toolbox::labeling {
      */
     template<class C> inline void seeded_watershed(const image<C> &t_reference, images::grayscale32s &t_markers) {
         if constexpr (std::is_same<typename C::raw_type, colors::bgr8u>::value) {
-            cv::watershed(t_reference.get_image(), t_markers.get_image());
+            cv::watershed(t_reference.get_mat(), t_markers.get_mat());
         }
         else {
             images::bgr8u reference = converters::semantic_convert<images::bgr8u>(t_reference);
-            cv::watershed(reference.get_image(), t_markers.get_image());
+            cv::watershed(reference.get_mat(), t_markers.get_mat());
         }
     }
 }

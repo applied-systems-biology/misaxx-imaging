@@ -19,8 +19,8 @@ namespace coixx::toolbox::bitwise {
             static_assert(traits::is_integral_grayscale_image(t_img), "Must be an integral grayscale image");
             static_assert(traits::is_compatible<C>(t_img), "Images are incompatible to each other");
 
-            cv::bitwise_or(t_img.get_image(), t_other.get_image(), t_img.get_image_buffer().get_image());
-            t_img.apply_buffer();
+            cv::bitwise_or(t_img.get_mat(), t_other.get_mat(), t_img.get_buffer_mat());
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -33,8 +33,8 @@ namespace coixx::toolbox::bitwise {
             static_assert(traits::is_integral_grayscale_image(t_img), "Must be an integral grayscale image");
             static_assert(traits::is_compatible<C>(t_img), "Images are incompatible to each other");
 
-            cv::bitwise_and(t_img.get_image(), t_other.get_image(), t_img.get_image_buffer().get_image());
-            t_img.apply_buffer();
+            cv::bitwise_and(t_img.get_mat(), t_other.get_mat(), t_img.get_buffer_mat());
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -47,8 +47,8 @@ namespace coixx::toolbox::bitwise {
             static_assert(traits::is_integral_grayscale_image(t_img), "Must be an integral grayscale image");
             static_assert(traits::is_compatible<C>(t_img), "Images are incompatible to each other");
 
-            cv::bitwise_xor(t_img.get_image(), t_other.get_image(), t_img.get_image_buffer().get_image());
-            t_img.apply_buffer();
+            cv::bitwise_xor(t_img.get_mat(), t_other.get_mat(), t_img.get_buffer_mat());
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -61,8 +61,8 @@ namespace coixx::toolbox::bitwise {
             static_assert(traits::is_integral_grayscale_image(t_img), "Must be an integral grayscale image");
             static_assert(traits::is_compatible<C>(t_img), "Images are incompatible to each other");
 
-            cv::bitwise_not(t_img.get_image(), t_img.get_image_buffer().get_image());
-            t_img.apply_buffer();
+            cv::bitwise_not(t_img.get_mat(), t_img.get_buffer_mat());
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 

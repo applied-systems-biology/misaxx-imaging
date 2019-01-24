@@ -19,7 +19,7 @@ namespace coixx::toolbox::mask {
      * @return
      */
     template <class Csrc> inline images::mask from(const image<Csrc> &sink, typename Csrc::raw_type min_signal = 0) {
-        return images::mask(sink.get_image() > min_signal);
+        return images::mask(sink.get_mat() > min_signal);
     }
 
     /**
@@ -30,7 +30,7 @@ namespace coixx::toolbox::mask {
      * @return
      */
     template <class Csrc> inline images::mask from_inv(const image<Csrc> &sink, typename Csrc::raw_type min_signal = 0) {
-        return images::mask(sink.get_image() <= min_signal);
+        return images::mask(sink.get_mat() <= min_signal);
     }
 
     /**

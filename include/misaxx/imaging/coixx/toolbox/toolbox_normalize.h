@@ -31,9 +31,9 @@ namespace coixx::toolbox::normalize {
             if (max_value == 0)
                 return;
 
-            for (int y = 0; y < t_img.get_image().rows; ++y) {
+            for (int y = 0; y < t_img.get_mat().rows; ++y) {
                 auto *row = t_img.row_ptr(y);
-                for (int x = 0; x < t_img.get_image().cols; ++x) {
+                for (int x = 0; x < t_img.get_mat().cols; ++x) {
                     row[x] = color_t((row[x] * max_possible_value) / max_value);
                 }
             }
@@ -155,7 +155,7 @@ namespace coixx::toolbox::normalize {
 
             color_type low_percentile = statistics::get_percentile(t_img, t_lower_percentile);
             t_img << values::clamp_below(color_type(low_percentile));
-            t_img.get_image() -= low_percentile.as_vec();
+            t_img.get_mat() -= low_percentile.as_vec();
             color_type high_percentile = statistics::get_percentile(t_img, t_higher_percentile);
             t_img << values::clamp_above(color_type(high_percentile));
             t_img << normalize::by_max();
@@ -176,8 +176,8 @@ namespace coixx::toolbox::normalize {
 
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
 
-            auto &img_buf = t_img.get_image_buffer().get_image();
-            auto &img = t_img.get_image();
+            auto &img_buf = t_img.get_buffer_mat();
+            auto &img = t_img.get_mat();
 
             if(t_percentile < 100) {
 
@@ -190,7 +190,7 @@ namespace coixx::toolbox::normalize {
                 if(upper_percentile > t_min_signal_value) {
                     img = img - lower_percentile;
                     cv::threshold(img, img_buf, upper_percentile - lower_percentile, 0, cv::THRESH_TRUNC);
-                    t_img.apply_buffer();
+                    std::swap(t_img.get_mat(), t_img.get_buffer_mat());
 
                     t_img << by_max();
                 }

@@ -88,10 +88,10 @@ namespace coixx {
          * @param t_type
          */
         explicit image(images::raw t_img) : m_img(std::move(t_img)) {
-            if (this->get_image().empty()) {
+            if (this->get_mat().empty()) {
                 throw std::runtime_error("The input image is empty!");
             }
-            if (this->get_image().type() != opencv_type) {
+            if (this->get_mat().type() != opencv_type) {
                 throw std::runtime_error("The type of the OpenCV image is not compatible with this image.");
             }
         }
@@ -103,7 +103,7 @@ namespace coixx {
          */
         image<C> clone(bool with_buffer = false) const {
             image<C> result;
-            result.get_image() = this->get_image().clone();
+            result.get_mat() = this->get_mat().clone();
             if(with_buffer && !this->m_buffer_image.empty()) {
                 result.m_buffer_image = this->m_buffer_image.clone();
             }
@@ -140,27 +140,27 @@ namespace coixx {
         }
 
         C *row_ptr(int y) {
-            return this->get_image().template ptr<C>(y);
+            return this->get_mat().template ptr<C>(y);
         }
 
         const C *row_ptr(int y) const {
-            return this->get_image().template ptr<C>(y);
+            return this->get_mat().template ptr<C>(y);
         }
 
         C at(int y, int x) const {
-            return this->get_image().template at<C>(y, x);
+            return this->get_mat().template at<C>(y, x);
         }
 
         C &at(int y, int x) {
-            return this->get_image().template at<C>(y, x);
+            return this->get_mat().template at<C>(y, x);
         }
 
         C at(const cv::Point &t_point) const {
-            return this->get_image().template at<C>(t_point);
+            return this->get_mat().template at<C>(t_point);
         }
 
         C &at(const cv::Point &t_point) {
-            return this->get_image().template at<C>(t_point);
+            return this->get_mat().template at<C>(t_point);
         }
 
         /**
@@ -168,7 +168,7 @@ namespace coixx {
          * @return
          */
         inline cv::Size get_size() const {
-            return  this->get_image().size();
+            return this->get_mat().size();
         }
 
         /**
@@ -188,34 +188,6 @@ namespace coixx {
         }
 
         /**
-         * Gets a buffer image
-         * @return
-         */
-        image<C> get_image_buffer() {
-            if(m_buffer_image.empty()) {
-                m_buffer_image = cv::Mat(m_img.rows, m_img.cols, m_img.type());
-            }
-            return image<C>(m_buffer_image);
-        }
-
-        /**
-         * Swaps the buffer image with the unbuffered image
-         */
-        void apply_buffer() {
-            if(m_buffer_image.empty()) {
-                m_buffer_image = cv::Mat(m_img.rows, m_img.cols, m_img.type());
-            }
-            std::swap(m_img, m_buffer_image);
-        }
-
-        /**
-         * Deletes the buffer image
-         */
-        void clear_buffer() {
-            m_buffer_image.release();
-        }
-
-        /**
          * Convenience wrapper for C::opencv_type
          * @return
          */
@@ -227,7 +199,7 @@ namespace coixx {
        * Gets the current image as reference
        * @return
        */
-        cv::Mat &get_image() {
+        cv::Mat &get_mat() {
             return m_img;
         }
 
@@ -235,7 +207,7 @@ namespace coixx {
          * Gers the current image as const reference
          * @return
          */
-        const cv::Mat &get_image() const {
+        const cv::Mat &get_mat() const {
             return m_img;
         }
 
@@ -247,6 +219,14 @@ namespace coixx {
 
         bool is_empty() const {
             return m_img.empty();
+        }
+
+        /**
+         * Returns an additional cv::Mat that acts as optional buffer for filtering
+         * @return
+         */
+        cv::Mat &get_buffer_mat() {
+            return m_buffer_image;
         }
 
     private:

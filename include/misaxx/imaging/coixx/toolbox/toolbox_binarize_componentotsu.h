@@ -31,12 +31,12 @@ namespace coixx::toolbox::binarize {
                 histograms.emplace_back(std::vector<int>(256));
             }
 
-            for(int y = 0; y < t_img.get_image().rows; ++y) {
+            for(int y = 0; y < t_img.get_mat().rows; ++y) {
 
                 const colors::labels *row_component = t_components.row_ptr(y);
                 const colors::mask *row = t_img.row_ptr(y);
 
-                for(int x = 0; x < t_img.get_image().cols; ++x) {
+                for(int x = 0; x < t_img.get_mat().cols; ++x) {
                     if(row_component[x].value > 0) {
                         ++(histograms[row_component[x]][row[x]]);
                         ++(histogram_sums[row_component[x]]);
@@ -96,12 +96,12 @@ namespace coixx::toolbox::binarize {
             }
 
             // Apply the thresholds to the image
-            for(int y = 0; y < t_img.get_image().rows; ++y) {
+            for(int y = 0; y < t_img.get_mat().rows; ++y) {
 
                 const colors::labels *row_component = t_components.row_ptr(y);
                 colors::mask *row = t_img.row_ptr(y);
 
-                for(int x = 0; x < t_img.get_image().cols; ++x) {
+                for(int x = 0; x < t_img.get_mat().cols; ++x) {
                     if(row_component[x] > 0) {
                         const int threshold = thresholds[row_component[x]];
                         row[x] = row[x] > threshold ? colors::mask::foreground() : colors::mask::background();

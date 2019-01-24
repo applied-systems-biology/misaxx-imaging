@@ -17,7 +17,7 @@ namespace coixx::toolbox::operators {
     template<class Image2> inline auto add(const Image2 &t_other) {
         return [&t_other](auto &t_img) {
             static_assert(traits::is_same<Image2>(t_img), "Images must have same type!");
-            t_img.get_image() += t_other.get_image();
+            t_img.get_mat() += t_other.get_mat();
         };
     }
 
@@ -28,7 +28,7 @@ namespace coixx::toolbox::operators {
     template<class Image2> inline auto subtract(const Image2 &t_other) {
         return [&t_other](auto &t_img) {
             static_assert(traits::is_same<Image2>(t_img), "Images must have same type!");
-            t_img.get_image() -= t_other.get_image();
+            t_img.get_mat() -= t_other.get_mat();
         };
     }
 
@@ -39,7 +39,7 @@ namespace coixx::toolbox::operators {
     template<class Image2> inline auto multiply(const Image2 &t_other) {
         return [&t_other](auto &t_img) {
             static_assert(traits::is_same<Image2>(t_img), "Images must have same type!");
-            t_img.get_image() *= t_other.get_image();
+            t_img.get_mat() *= t_other.get_mat();
         };
     }
 
@@ -50,7 +50,7 @@ namespace coixx::toolbox::operators {
     template<class Image2> inline auto divide(const Image2 &t_other) {
         return [&t_other](auto &t_img) {
             static_assert(traits::is_same<Image2>(t_img), "Images must have same type!");
-            t_img.get_image() /= t_other.get_image();
+            t_img.get_mat() /= t_other.get_mat();
         };
     }
 

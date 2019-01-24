@@ -18,23 +18,24 @@ namespace coixx::toolbox::edge {
         return [](auto &t_img) {
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
             using channel_type = typename image_t::color_type::channel_type;
+            using color_type = typename image_t::color_type;
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
 
             if constexpr (std::is_same<channel_type , int>::value) {
 
-                for(int y = 0; y < t_img.get_image().rows; ++y) {
+                for(int y = 0; y < t_img.get_mat().rows; ++y) {
 
-                    const auto * row_src_last = t_img.row_ptr(y - 1);
-                    const auto * row_src = t_img.row_ptr(y);
-                    const auto * row_src_next = t_img.row_ptr(y + 1);
-                    auto * row_dst = t_img.get_image_buffer().row_ptr(y);
+                    const color_type * row_src_last = t_img.row_ptr(y - 1);
+                    const color_type * row_src = t_img.row_ptr(y);
+                    const color_type * row_src_next = t_img.row_ptr(y + 1);
+                    color_type * row_dst = t_img.get_buffer_mat().template ptr<color_type>(y);
 
-                    for(int x = 0; x < t_img.get_image().cols; ++x) {
+                    for(int x = 0; x < t_img.get_mat().cols; ++x) {
 
                         const auto c = row_src[x];
                         const auto n = (y >= 1) ? row_src_last[x] : c;
-                        const auto s = (y <= t_img.get_image().rows - 2) ? row_src_next[x] : c;
-                        const auto e = (x <= t_img.get_image().rows - 2) ? row_src[x + 1] : c;
+                        const auto s = (y <= t_img.get_mat().rows - 2) ? row_src_next[x] : c;
+                        const auto e = (x <= t_img.get_mat().rows - 2) ? row_src[x + 1] : c;
                         const auto w = (x >= 1) ? row_src[x - 1] : c;
 
                         // Calculate like this to prevent overflows
@@ -42,11 +43,11 @@ namespace coixx::toolbox::edge {
                     }
                 }
 
-                t_img.apply_buffer();
+                std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             }
             else {
-                cv::Laplacian(t_img.get_image(), t_img.get_image_buffer().get_image(), image_t::opencv_type);
-                t_img.apply_buffer();
+                cv::Laplacian(t_img.get_mat(), t_img.get_buffer_mat(), image_t::opencv_type);
+                std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             }
         };
     }
@@ -62,8 +63,8 @@ namespace coixx::toolbox::edge {
     inline auto canny(double t_threshold_low, double t_threshold_high, int t_aperture_size = 3, bool t_l2_gradient = false) {
         return [=](auto &t_img) {
             static_assert(traits::is_compatible<images::grayscale8u>(t_img), "Only 8 bit grayscale images are supported!");
-            cv::Canny(t_img.get_image(), t_img.get_image_buffer().get_image(), t_threshold_low, t_threshold_high, t_aperture_size, t_l2_gradient);
-            t_img.apply_buffer();
+            cv::Canny(t_img.get_mat(), t_img.get_buffer_mat(), t_threshold_low, t_threshold_high, t_aperture_size, t_l2_gradient);
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -77,8 +78,8 @@ namespace coixx::toolbox::edge {
         return [=](auto &t_img) {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(traits::is_floating_grayscale_image(t_img), "Must be a float or double image!");
-            cv::Sobel(t_img.get_image(), t_img.get_image_buffer().get_image(), t_img.get_open_cv_type(), t_dx, t_dy);
-            t_img.apply_buffer();
+            cv::Sobel(t_img.get_mat(), t_img.get_buffer_mat(), t_img.get_open_cv_type(), t_dx, t_dy);
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -110,19 +111,19 @@ namespace coixx::toolbox::edge {
             using raw_type = typename image_t::raw_color_type;
 
             t_img << sobel_x();
-            const images::raw img_gx = t_img.get_image().clone(); // Copy Gx from image
-            t_img.apply_buffer(); // Swap back to the original image
+            const images::raw img_gx = t_img.get_mat().clone(); // Copy Gx from image
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat()); // Swap back to the original image
             t_img << sobel_y();
-            t_img.apply_buffer(); // Swap back to the original image. Gy is now in buffer
-            const images::raw &img_gy = t_img.get_image_buffer().get_image();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat()); // Swap back to the original image. Gy is now in buffer
+            const images::raw &img_gy = t_img.get_buffer_mat();
 
-            for(int y = 0; y < t_img.get_image().rows; ++y) {
+            for(int y = 0; y < t_img.get_mat().rows; ++y) {
 
                 const auto * row_gx = img_gx.ptr<raw_type>(y);
                 const auto * row_gy = img_gy.ptr<raw_type>(y);
-                float * row = t_img.get_image().template ptr<raw_type>(y);
+                float * row = t_img.get_mat().template ptr<raw_type>(y);
 
-                for(int x = 0; x < t_img.get_image().cols; ++x) {
+                for(int x = 0; x < t_img.get_mat().cols; ++x) {
                     row[x] = sqrtf(powf(row_gx[x], 2) + powf(row_gy[x], 2));
                 }
             }

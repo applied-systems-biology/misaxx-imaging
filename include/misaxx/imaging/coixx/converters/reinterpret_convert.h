@@ -100,7 +100,7 @@ namespace coixx::converters {
             if(target_size(t_src.get_size()) != t_dst.get_size()) {
                 throw std::runtime_error("Target size does not match!");
             }
-            t_src.get_image().convertTo(t_dst.get_image(), t_dst.get_open_cv_type(), 1);
+            t_src.get_mat().convertTo(t_dst.get_mat(), t_dst.get_open_cv_type(), 1);
         }
     };
 

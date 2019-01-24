@@ -27,13 +27,13 @@ const cv::ximgproc::SuperpixelSLIC &superpixels_slic::get_instance() const {
 
 images::mask superpixels_slic::to_mask(bool t_thick_line) const {
     images::mask target = images::mask::allocate(m_size);
-    m_instance->getLabelContourMask(target.get_image(), t_thick_line);
+    m_instance->getLabelContourMask(target.get_mat(), t_thick_line);
     return target;
 }
 
 images::grayscale32s superpixels_slic::get_labels() const {
     images::grayscale32s target = images::labels::allocate(m_size);
-    m_instance->getLabels(target.get_image());
+    m_instance->getLabels(target.get_mat());
     return target;
 }
 

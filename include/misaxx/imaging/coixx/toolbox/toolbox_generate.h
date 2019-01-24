@@ -47,11 +47,11 @@ namespace coixx::toolbox::generate {
         const double r_sq = pow(t_radius, 2);
 
         static_assert(traits::is_grayscale(t_target), "Only grayscale images are supported!");
-        for(int y = 0; y < t_target.get_image().rows; ++y) {
+        for(int y = 0; y < t_target.get_mat().rows; ++y) {
 
             auto *row = t_target.row_ptr(y);
 
-            for(int x = 0; x < t_target.get_image().cols; ++x) {
+            for(int x = 0; x < t_target.get_mat().cols; ++x) {
                 for(const auto &point : t_centers) {
                     const double l = pow(x - point.x, 2) + pow(y - point.y, 2);
 

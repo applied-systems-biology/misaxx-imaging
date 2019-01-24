@@ -22,7 +22,7 @@ namespace coixx::toolbox::channels {
             using image_t = typename std::remove_reference<decltype(t_img)>::type;
             static_assert(std::is_same<typename DestinationImage::color_type::channel_type, typename image_t::color_type::channel_type>::value, "The channel types must match!");
 
-            const cv::Mat &raw = t_img.get_image();
+            const cv::Mat &raw = t_img.get_mat();
             std::vector<cv::Mat> target(raw.channels());
             cv::split(raw, target.data());
 
@@ -48,7 +48,7 @@ namespace coixx::toolbox::channels {
 
         std::vector<cv::Mat> input;
         for(const auto &v : t_input) {
-            input.push_back(v.get_image());
+            input.push_back(v.get_mat());
         }
         cv::Mat result;
         cv::merge(input, result);
@@ -61,7 +61,7 @@ namespace coixx::toolbox::channels {
             static_assert(InputImage::color_type::channels == 1, "The input images must have 1 channel");
             static_assert(std::is_same<typename OutputImage::color_type::channel_type, typename InputImage::color_type::channel_type>::value, "The channel types must match!");
 
-            result.push_back(img.get_image());
+            result.push_back(img.get_mat());
 
             if constexpr (sizeof...(Args) != 0) {
                 merge_detail<OutputImage>(result, args...);

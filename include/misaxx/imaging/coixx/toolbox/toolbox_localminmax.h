@@ -21,7 +21,7 @@ namespace coixx::toolbox::localminmax {
     template<class C>
     inline images::mask local_max_morph(const image<C> &t_img, int t_radius) {
         auto morphed = t_img.clone() << morph::dilate(structuring_element::circle(t_radius * 2 + 1));
-        return images::mask(t_img.get_image() == morphed.get_image());
+        return images::mask(t_img.get_mat() == morphed.get_mat());
     }
 
     /**
@@ -34,7 +34,7 @@ namespace coixx::toolbox::localminmax {
     template<class C>
     inline images::mask local_min_morph(const image<C> &t_img, int t_radius) {
         auto morphed = t_img.clone() << morph::erode(structuring_element::circle(t_radius * 2 + 1));
-        return images::mask(t_img.get_image() == morphed.get_image());
+        return images::mask(t_img.get_mat() == morphed.get_mat());
     }
 
     /**
@@ -46,7 +46,7 @@ namespace coixx::toolbox::localminmax {
     template<class C>
     inline images::mask local_exclusive_max_morph(const image<C> &t_img, int t_radius) {
         auto morphed = t_img.clone() << morph::dilate(structuring_element::circle_with_hole(t_radius * 2 + 1));
-        return images::mask(t_img.get_image() > morphed.get_image()); // Important!
+        return images::mask(t_img.get_mat() > morphed.get_mat()); // Important!
     }
 
     /**
@@ -58,7 +58,7 @@ namespace coixx::toolbox::localminmax {
     template<class C>
     inline images::mask local_exclusive_min_morph(const image<C> &t_img, int t_radius) {
         auto morphed = t_img.clone() << morph::erode(structuring_element::circle_with_hole(t_radius * 2 + 1));
-        return images::mask(t_img.get_image() < morphed.get_image()); // Important!
+        return images::mask(t_img.get_mat() < morphed.get_mat()); // Important!
     }
 
 }

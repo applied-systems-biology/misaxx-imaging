@@ -40,7 +40,7 @@ namespace coixx::toolbox::statistics {
    */
     template<class C>
     inline int count_non_zero(const image<C> &t_img) {
-        return cv::countNonZero(t_img.get_image());
+        return cv::countNonZero(t_img.get_mat());
     }
 
     /**
@@ -59,7 +59,7 @@ namespace coixx::toolbox::statistics {
     template<class C, typename RawColor = typename C::raw_type>
     inline RawColor min(const image<C> &t_img) {
 
-        const images::raw &raw_image = t_img.get_image();
+        const images::raw &raw_image = t_img.get_mat();
 
         double v;
         cv::minMaxLoc(raw_image, &v);
@@ -73,7 +73,7 @@ namespace coixx::toolbox::statistics {
     template<class C, typename RawColor = typename C::raw_type>
     inline RawColor max(const image<C> &t_img) {
 
-        const images::raw &raw_image = t_img.get_image();
+        const images::raw &raw_image = t_img.get_mat();
 
         double v;
         cv::minMaxLoc(raw_image, nullptr, &v);
@@ -88,7 +88,7 @@ namespace coixx::toolbox::statistics {
     template<class C>
     inline void min_max(const image<C> &t_img, C &min, C &max) {
 
-        const images::raw &raw_image = t_img.get_image();
+        const images::raw &raw_image = t_img.get_mat();
 
         double dmin, dmax;
         cv::minMaxLoc(raw_image, &dmin, &dmax);
@@ -197,7 +197,7 @@ namespace coixx::toolbox::statistics {
     */
     template<class C>
     inline double get_mean(const image<C> &t_img) {
-        return static_cast<double>(cv::mean(t_img.get_image())[0]);
+        return static_cast<double>(cv::mean(t_img.get_mat())[0]);
     }
 
     /**
@@ -206,7 +206,7 @@ namespace coixx::toolbox::statistics {
      */
     template<class C>
     inline double get_mean_where(const image<C> &t_img, const images::mask &t_mask) {
-        return static_cast<double>(cv::mean(t_img.get_image(), t_mask.get_image())[0]);
+        return static_cast<double>(cv::mean(t_img.get_mat(), t_mask.get_mat())[0]);
     }
 
     /**
@@ -218,7 +218,7 @@ namespace coixx::toolbox::statistics {
     template<class C>
     inline void update_min_max(const image<C> &t_img, C &min, C &max) {
 
-        const images::raw &raw_image = t_img.get_image();
+        const images::raw &raw_image = t_img.get_mat();
 
         double dmin, dmax;
         cv::minMaxLoc(raw_image, &dmin, &dmax);
@@ -236,7 +236,7 @@ namespace coixx::toolbox::statistics {
     template<class C>
     inline void min_max_(const image<C> &t_img, double &min, double &max) {
 
-        const images::raw &raw_image = t_img.get_image();
+        const images::raw &raw_image = t_img.get_mat();
         cv::minMaxLoc(raw_image, &min, &max);
     }
 

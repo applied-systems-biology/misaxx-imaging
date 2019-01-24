@@ -50,10 +50,10 @@ namespace coixx::converters {
         static void image(const image<Csrc> &t_src, image<Cdst> &t_dst) {
             if constexpr (!std::is_same<Csrc, Cdst>::value) {
                 double scale_factor = (Cdst::last_value - Cdst::first_value) * 1.0 / (Csrc::last_value - Csrc::first_value);
-                t_src.get_image().convertTo(t_dst.get_image(), t_dst.get_open_cv_type(), scale_factor);
+                t_src.get_mat().convertTo(t_dst.get_mat(), t_dst.get_open_cv_type(), scale_factor);
             }
             else {
-                t_dst.get_image() = t_src.get_image().clone();
+                t_dst.get_mat() = t_src.get_mat().clone();
             }
         }
     };
@@ -79,18 +79,18 @@ namespace coixx::converters {
                               "Only grayscale8u, grayscale16u or grayscale_float images can be converted!");
 
                 if constexpr (std::is_same<Csrc, colors::grayscale8u>::value) {
-                    cv::cvtColor(t_src.get_image(), t_dst.get_image(), cv::COLOR_GRAY2BGR);
+                    cv::cvtColor(t_src.get_mat(), t_dst.get_mat(), cv::COLOR_GRAY2BGR);
                 }
                 else {
                     images::grayscale8u tmp(t_src.get_size());
                     semantic_converter<Csrc, colors::grayscale8u >::image(t_src, tmp);
-                    cv::cvtColor(tmp.get_image(), t_dst.get_image(), cv::COLOR_GRAY2BGR);
+                    cv::cvtColor(tmp.get_mat(), t_dst.get_mat(), cv::COLOR_GRAY2BGR);
                 }
 
-                assert(t_dst.get_image().type() == colors::bgr8u::opencv_type);
+                assert(t_dst.get_mat().type() == colors::bgr8u::opencv_type);
             }
             else {
-                t_dst.get_image() = t_src.get_image().clone();
+                t_dst.get_mat() = t_src.get_mat().clone();
             }
         }
 
@@ -137,7 +137,7 @@ namespace coixx::converters {
         * @param t_dst
         */
         static void image(const images::bgr8u &t_src, images::hsv8u &t_dst) {
-            cv::cvtColor(t_src.get_image(), t_dst.get_image(), cv::COLOR_BGR2HSV);
+            cv::cvtColor(t_src.get_mat(), t_dst.get_mat(), cv::COLOR_BGR2HSV);
         }
     };
 
@@ -166,7 +166,7 @@ namespace coixx::converters {
         * @param t_dst
         */
         static void image(const images::hsv8u &t_src, images::bgr8u &t_dst) {
-            cv::cvtColor(t_src.get_image(), t_dst.get_image(), cv::COLOR_HSV2BGR);
+            cv::cvtColor(t_src.get_mat(), t_dst.get_mat(), cv::COLOR_HSV2BGR);
         }
     };
 

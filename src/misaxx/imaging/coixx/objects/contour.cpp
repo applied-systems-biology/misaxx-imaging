@@ -8,7 +8,7 @@ using namespace coixx;
 
 contour::contour(const images::mask &t_img, contour::return_mode t_return_mode, contour::approximation t_approx) {
     images::mask cont = t_img.clone();
-    cv::findContours(cont.get_image(), m_contours, m_hierarchy, static_cast<int>(t_return_mode), static_cast<int>(t_approx));
+    cv::findContours(cont.get_mat(), m_contours, m_hierarchy, static_cast<int>(t_return_mode), static_cast<int>(t_approx));
 }
 
 const std::vector<std::vector<cv::Point> > &contour::get_contours() const {

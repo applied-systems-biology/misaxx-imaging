@@ -29,7 +29,7 @@ namespace coixx::toolbox {
     inline auto show(const std::string &t_title) {
         return [&](auto &t_img) {
             cv::namedWindow(t_title, cv::WINDOW_KEEPRATIO | cv::WINDOW_GUI_EXPANDED);
-            cv::imshow(t_title, t_img.get_image());
+            cv::imshow(t_title, t_img.get_mat());
         };
     }
 
@@ -41,7 +41,7 @@ namespace coixx::toolbox {
     inline auto show_and_wait(const std::string &t_title) {
         return [&](auto &t_img) {
             cv::namedWindow(t_title, cv::WINDOW_KEEPRATIO | cv::WINDOW_GUI_EXPANDED);
-            cv::imshow(t_title, t_img.get_image());
+            cv::imshow(t_title, t_img.get_mat());
             cv::waitKey(0);
         };
     }
@@ -52,7 +52,7 @@ namespace coixx::toolbox {
      */
     inline auto swap_buffer() {
         return [](auto &t_img) {
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 

@@ -27,7 +27,7 @@ namespace coixx::toolbox {
      */
     template<class C>
     inline image<C> resize(const image<C> &t_img, const cv::Size &t_size, resize_interpolation t_interpolation) {
-        const images::raw &img = t_img.get_image();
+        const images::raw &img = t_img.get_mat();
         images::raw img_buf(t_size, img.type());
         cv::resize(img, img_buf, t_size, 0, 0, static_cast<int>(t_interpolation));
         return image<C>(img_buf); // TODO: std::move?
@@ -64,7 +64,7 @@ namespace coixx::toolbox {
             throw std::runtime_error("Only positive margins are supported!");
         }
 
-        const images::raw &img = t_img.get_image();
+        const images::raw &img = t_img.get_mat();
 
         images::raw target(cv::Size(img.size().width + t_border.get_left() + t_border.get_right(),
                                     img.size().height + t_border.get_top() + t_border.get_bottom()),
@@ -93,7 +93,7 @@ namespace coixx::toolbox {
             throw std::runtime_error("Only positive margins are supported!");
         }
 
-        const images::raw &img = t_img.get_image();
+        const images::raw &img = t_img.get_mat();
         cv::Rect roi = t_border.to_rect(img.size());
         return image<C>(std::move(img(roi)));
     }

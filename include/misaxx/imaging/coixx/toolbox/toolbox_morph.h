@@ -24,15 +24,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_DILATE,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -49,15 +49,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_ERODE,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -74,15 +74,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_OPEN,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -99,15 +99,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_CLOSE,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -124,15 +124,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_GRADIENT,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -149,15 +149,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_TOPHAT,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -174,15 +174,15 @@ namespace coixx::toolbox::morph {
             static_assert(traits::is_grayscale(t_img), "Must be a grayscale image");
             static_assert(!traits::is_compatible<images::grayscale32s >(t_img), "Cannot be an integral grayscale image");
 
-            cv::morphologyEx(t_img.get_image(),
-                             t_img.get_image_buffer().get_image(),
+            cv::morphologyEx(t_img.get_mat(),
+                             t_img.get_buffer_mat(),
                              cv::MORPH_BLACKHAT,
-                             t_element.get_image(),
+                             t_element.get_mat(),
                              cv::Point(-1,-1),
                              t_repeats,
                              cv::BORDER_CONSTANT, 0);
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
         };
     }
 
@@ -205,8 +205,8 @@ namespace coixx::toolbox::morph {
             const raw_type value_1 = color_t::white();
             const raw_type value_0 = color_t::black();
 
-            auto &img_buf = t_img.get_image_buffer().get_image();
-            auto &img = t_img.get_image();
+            auto &img_buf = t_img.get_buffer_mat();
+            auto &img = t_img.get_mat();
 
             img_buf = value_0; // Set to "0"
 
@@ -294,7 +294,7 @@ namespace coixx::toolbox::morph {
                 }
             }
 
-            t_img.apply_buffer();
+            std::swap(t_img.get_mat(), t_img.get_buffer_mat());
             t_img << values::invert();
         };
     }

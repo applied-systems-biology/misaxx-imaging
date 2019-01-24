@@ -19,7 +19,7 @@ namespace coixx {
 
         template<class C>
         explicit superpixels_slic(const image<C> &t_img, superpixels_slic_algorithm t_algorithm, int t_region_size,
-                                  float t_compactness) : superpixels_slic(t_img.get_image(), t_algorithm, t_region_size, t_compactness) {
+                                  float t_compactness) : superpixels_slic(t_img.get_mat(), t_algorithm, t_region_size, t_compactness) {
 
         }
 
