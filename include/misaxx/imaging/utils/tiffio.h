@@ -13,14 +13,14 @@ namespace misaxx::imaging::utils {
      * @param t_path
      * @return
      */
-    extern cv::Mat imread(const boost::filesystem::path &t_path);
+    extern cv::Mat tiffread(const boost::filesystem::path &t_path);
 
     /**
      * Writes a cv::Mat to TIFF. Supports all types supported by OpenCV
      * @param t_img
      * @param t_path
      */
-    extern void imwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path);
+    extern void tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path);
 }
 
 

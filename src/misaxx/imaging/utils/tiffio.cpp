@@ -133,7 +133,7 @@ void tiff_writer::write_row_(const void *row, unsigned int y, unsigned short sam
     TIFFWriteScanline(m_tiff, const_cast<void*>(row), y, sample);
 }
 
-cv::Mat misaxx::imaging::utils::imread(const boost::filesystem::path &t_path) {
+cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) {
     tiff_reader reader {t_path.string()};
     int opencv_type;
     switch(reader.get_sample_format()) {
@@ -187,7 +187,7 @@ cv::Mat misaxx::imaging::utils::imread(const boost::filesystem::path &t_path) {
     return result;
 }
 
-void misaxx::imaging::utils::imwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path) {
+void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path) {
     ushort num_samples = t_img.channels();
     ushort depth;
     ushort sample_format;
