@@ -100,7 +100,7 @@ add_library(misaxx-imaging
         src/misaxx/imaging/descriptions/misa_image_description.cpp
         include/misaxx/imaging/descriptions/misa_image_description.h
         src/misaxx/imaging/descriptions/misa_image_stack_description.cpp
-        include/misaxx/imaging/descriptions/misa_image_stack_description.h include/misaxx/imaging/coixx/buffer.h)
+        include/misaxx/imaging/descriptions/misa_image_stack_description.h include/misaxx/imaging/coixx/buffer.h src/misaxx/imaging/utils/tiffio.cpp include/misaxx/imaging/utils/tiffio.h)
 
 set(MISAXX_LIBRARY misaxx-imaging)
 set(MISAXX_LIBRARY_NAMESPACE misaxx::)
