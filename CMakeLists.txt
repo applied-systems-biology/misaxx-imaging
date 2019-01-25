@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.11)
 project(misaxx-imaging VERSION 0.1.0 DESCRIPTION "MISA++ Imaging Core")
 
+#set(CMAKE_VERBOSE_MAKEFILE ON)
+
 find_package(misaxx-core REQUIRED)
 find_package(OpenCV 4 COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
 find_package(TIFF REQUIRED)
@@ -114,4 +116,7 @@ target_include_directories(misaxx-imaging PUBLIC $<BUILD_INTERFACE:${OpenCV_INCL
 target_include_directories(misaxx-imaging PUBLIC $<BUILD_INTERFACE:${TIFF_INCLUDE_DIR}>)
 target_link_libraries(misaxx-imaging PUBLIC ${OpenCV_LIBS}
         ${TIFF_LIBRARIES}
-        misaxx::misaxx-core)
+        misaxx::misaxx-core
+        misaxx::misaxx-static-opencv)
+
+add_subdirectory(cv2)
