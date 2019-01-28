@@ -13,7 +13,7 @@ namespace cv {
      * @tparam OpenCVType
      * @tparam Base Any class that supports the BMat constructors
      */
-    template<typename T, int OpenCVType, class Base = BMat> struct SMat : public Base {
+    template<typename T, int OpenCVType, class Derived, class Base = BMat> struct SMat : public Base {
         using static_data_type = T;
         static constexpr int static_opencv_type = OpenCVType;
 
@@ -48,6 +48,11 @@ namespace cv {
 
         const static_data_type &static_at(const cv::Point &pos) const {
             return this->template at<static_data_type >(pos);
+        }
+
+        Derived clone() const {
+            auto copy = Base::clone();
+            return Derived(std::move(copy));
         }
 
     };

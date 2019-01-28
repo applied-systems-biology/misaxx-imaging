@@ -45,6 +45,12 @@ namespace cv {
         cv::Mat &buffer(bool nonEmpty = true);
 
         /**
+         * Adapter to the underlying front cv::Mat (use this with assignment operators)
+         * @return
+         */
+        cv::Mat &self();
+
+        /**
          * Creates a new BMat without initializing it with values
          * @param size
          * @param type

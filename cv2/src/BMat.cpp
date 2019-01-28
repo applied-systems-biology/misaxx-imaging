@@ -12,10 +12,7 @@ cv::BMat::BMat(const cv::Size &size, int type, const cv::Scalar &init) : cv::Mat
 }
 
 void cv::BMat::swap() {
-    cv::Mat other = m_buffer;
-    cv::Mat here = static_cast<cv::Mat>(*this);
-    *this = BMat(std::move(other));
-    this->m_buffer = std::move(here);
+    std::swap(self(), buffer(true));
 }
 
 cv::Mat &cv::BMat::buffer(bool nonEmpty) {
@@ -27,6 +24,10 @@ cv::Mat &cv::BMat::buffer(bool nonEmpty) {
 
 cv::BMat cv::BMat::allocate(const cv::Size &size, int type) {
     return cv::BMat(cv::Mat(size, type));
+}
+
+cv::Mat &cv::BMat::self() {
+    return *this;
 }
 
 

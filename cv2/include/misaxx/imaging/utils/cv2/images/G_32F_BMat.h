@@ -10,8 +10,8 @@ namespace cv {
     /**
      * Buffered cv::Mat of CV_32FC1 (Greyscale)
      */
-    struct G_32F_BMat : public SMat<float, CV_32FC(1), G_xF_BMat> {
-        using SMat<float, CV_32FC(1), G_xF_BMat>::SMat;
+    struct G_32F_BMat : public SMat<float, CV_32FC(1), G_32F_BMat, G_xF_BMat> {
+        using SMat<float, CV_32FC(1), G_32F_BMat, G_xF_BMat>::SMat;
     };
 }
 

@@ -7,8 +7,8 @@
 #include <misaxx/imaging/utils/cv2/SMat.h>
 
 namespace cv {
-    class G_16U_BMat : public SMat<ushort, CV_16UC(1), G_xU_BMat> {
-        using SMat<ushort, CV_16UC(1), G_xU_BMat>::SMat;
+    class G_16U_BMat : public SMat<ushort, CV_16UC(1), G_16U_BMat, G_xU_BMat> {
+        using SMat<ushort, CV_16UC(1), G_16U_BMat, G_xU_BMat>::SMat;
     };
 }
 

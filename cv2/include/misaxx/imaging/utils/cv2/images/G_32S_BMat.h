@@ -7,8 +7,8 @@
 #include <misaxx/imaging/utils/cv2/SMat.h>
 
 namespace cv {
-    struct G_32S_BMat : public SMat<int, CV_32SC(1), G_xU_xS_BMat>{
-        using SMat<int, CV_32SC(1), G_xU_xS_BMat>::SMat;
+    struct G_32S_BMat : public SMat<int, CV_32SC(1), G_32S_BMat, G_xU_xS_BMat>{
+        using SMat<int, CV_32SC(1), G_32S_BMat, G_xU_xS_BMat>::SMat;
     };
 }
 

@@ -51,8 +51,8 @@ add_library(misaxx-static-opencv include/misaxx/imaging/utils/cv2/BMat.h
         include/misaxx/imaging/utils/cv2/images/G_xU_BMat.h
         src/images/G_xS_BMat.cpp
         include/misaxx/imaging/utils/cv2/images/G_xS_BMat.h
-        src/toolbox/toolbox_query.cpp
-        include/misaxx/imaging/utils/cv2/toolbox/toolbox_query.h)
+        src/toolbox/toolbox_statistics.cpp
+        include/misaxx/imaging/utils/cv2/toolbox/toolbox_statistics.h src/toolbox/toolbox_resize.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_resize.h src/margin.cpp include/misaxx/imaging/utils/cv2/margin.h src/toolbox/toolbox_blur.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_blur.h src/toolbox/toolbox_normalize.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_normalize.h src/toolbox/toolbox_apply.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_apply.h src/pixel.cpp include/misaxx/imaging/utils/cv2/pixel.h src/structuring_element.cpp include/misaxx/imaging/utils/cv2/structuring_element.h src/toolbox/toolbox_morph.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_morph.h src/toolbox/toolbox_color.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_color.h src/toolbox/toolbox_labeling.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_labeling.h include/misaxx/imaging/utils/cv2/connectivity.h)
 
 # For installation
 target_compile_features(misaxx-static-opencv PUBLIC cxx_std_17)
