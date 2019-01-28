@@ -12,6 +12,8 @@ namespace cv::toolbox {
 
     extern void binarize(images::grayscale32f &img, float threshold, float signal_value = 1, bool invert = false);
 
+    extern images::mask to_mask(const images::grayscale32s &img);
+
 }
 
 

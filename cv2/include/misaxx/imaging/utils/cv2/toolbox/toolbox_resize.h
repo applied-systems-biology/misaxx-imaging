@@ -25,7 +25,7 @@ namespace cv::toolbox {
      * @param interpolation
      * @return
      */
-    template<class _Mat> _Mat resize(const _Mat &img, const cv::Size &size, resize_interpolation interpolation = resize_interpolation::nearest) {
+    template<class _Mat> inline _Mat resize(const _Mat &img, const cv::Size &size, resize_interpolation interpolation = resize_interpolation::nearest) {
         _Mat result;
         cv::resize(img, result, size, 0, 0, static_cast<int>(interpolation));
         return result;
@@ -39,7 +39,7 @@ namespace cv::toolbox {
      * @param interpolation
      * @return
      */
-    template<class _Mat> _Mat resize(const _Mat &img, double factor, resize_interpolation interpolation = resize_interpolation::nearest) {
+    template<class _Mat> inline _Mat resize(const _Mat &img, double factor, resize_interpolation interpolation = resize_interpolation::nearest) {
         if(factor <= 0) {
             throw std::runtime_error("Unsupported resize factor of " + std::to_string(factor));
         }

@@ -12,11 +12,6 @@
 #include <misaxx/imaging/utils/cv2/images/G_32S_BMat.h>
 #include <misaxx/imaging/utils/cv2/images/G_32F_BMat.h>
 #include <misaxx/imaging/utils/cv2/images/G_64F_BMat.h>
-#include <misaxx/imaging/utils/cv2/images/G_BMat.h>
-#include <misaxx/imaging/utils/cv2/images/G_xU_BMat.h>
-#include <misaxx/imaging/utils/cv2/images/G_xS_BMat.h>
-#include <misaxx/imaging/utils/cv2/images/G_xU_xS_BMat.h>
-#include <misaxx/imaging/utils/cv2/images/G_xF_BMat.h>
 
 /**
  * Contains convenient static
