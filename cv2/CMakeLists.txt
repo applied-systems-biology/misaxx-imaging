@@ -17,30 +17,14 @@ feature_summary(WHAT ALL)
 
 add_library(misaxx-static-opencv include/misaxx/imaging/utils/cv2/BMat.h
         src/BMat.cpp
-        src/images/G_32F_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_32F_BMat.h
-        src/images/G_8U_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_8U_BMat.h
-        include/misaxx/imaging/utils/cv2/SMat.h
-        src/images/G_8S_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_8S_BMat.h
-        src/images/G_16S_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_16S_BMat.h
-        src/images/G_16U_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_16U_BMat.h
-        src/images/G_64F_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_64F_BMat.h
-        src/images/G_32S_BMat.cpp
-        include/misaxx/imaging/utils/cv2/images/G_32S_BMat.h
         src/io/tiffio.cpp
         include/misaxx/imaging/utils/cv2/io/tiffio.h
-        include/misaxx/imaging/utils/cv2/static_types.h
         src/toolbox/toolbox_binarize.cpp
         include/misaxx/imaging/utils/cv2/toolbox/toolbox_binarize.h
         src/toolbox/toolbox_semantic_convert.cpp
         include/misaxx/imaging/utils/cv2/toolbox/toolbox_semantic_convert.h
         src/toolbox/toolbox_statistics.cpp
-        include/misaxx/imaging/utils/cv2/toolbox/toolbox_statistics.h src/toolbox/toolbox_resize.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_resize.h src/margin.cpp include/misaxx/imaging/utils/cv2/margin.h src/toolbox/toolbox_blur.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_blur.h src/toolbox/toolbox_normalize.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_normalize.h src/toolbox/toolbox_apply.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_apply.h src/pixel.cpp include/misaxx/imaging/utils/cv2/pixel.h src/structuring_element.cpp include/misaxx/imaging/utils/cv2/structuring_element.h src/toolbox/toolbox_morph.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_morph.h src/toolbox/toolbox_color.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_color.h src/toolbox/toolbox_labeling.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_labeling.h include/misaxx/imaging/utils/cv2/connectivity.h include/misaxx/imaging/utils/cv2/label_properties.h include/misaxx/imaging/utils/cv2/labeled_image_properties.h include/misaxx/imaging/utils/cv2/label_properties/cc_average_intensity.h src/label_properties/cc_average_intensity.cpp include/misaxx/imaging/utils/cv2/recoloring_map.h src/toolbox/toolbox_recoloring.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_recoloring.h include/misaxx/imaging/utils/cv2/UnionSMat.h)
+        include/misaxx/imaging/utils/cv2/toolbox/toolbox_statistics.h src/toolbox/toolbox_resize.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_resize.h src/margin.cpp include/misaxx/imaging/utils/cv2/margin.h src/toolbox/toolbox_blur.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_blur.h src/toolbox/toolbox_normalize.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_normalize.h src/pixel.cpp include/misaxx/imaging/utils/cv2/pixel.h src/structuring_element.cpp include/misaxx/imaging/utils/cv2/structuring_element.h src/toolbox/toolbox_morph.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_morph.h src/toolbox/toolbox_color.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_color.h src/toolbox/toolbox_labeling.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_labeling.h include/misaxx/imaging/utils/cv2/connectivity.h include/misaxx/imaging/utils/cv2/label_properties.h include/misaxx/imaging/utils/cv2/labeled_image_properties.h include/misaxx/imaging/utils/cv2/label_properties/cc_average_intensity.h src/label_properties/cc_average_intensity.cpp include/misaxx/imaging/utils/cv2/recoloring_map.h src/toolbox/toolbox_recoloring.cpp include/misaxx/imaging/utils/cv2/toolbox/toolbox_recoloring.h include/misaxx/imaging/utils/cv2/UnionSMat.h)
 
 # For installation
 target_compile_features(misaxx-static-opencv PUBLIC cxx_std_17)

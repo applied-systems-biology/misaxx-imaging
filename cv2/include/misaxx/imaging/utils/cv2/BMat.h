@@ -58,6 +58,16 @@ namespace cv {
          */
         static BMat allocate(const cv::Size &size, int type);
 
+        /**
+         * Applies filter in function to this Mat
+         * @tparam _Func
+         * @param f
+         */
+        template<class _Func> void swap_after(const _Func &f) {
+            f(*this);
+            swap();
+        }
+
     private:
         cv::Mat m_buffer;
     };
