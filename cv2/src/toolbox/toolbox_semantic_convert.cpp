@@ -32,7 +32,7 @@ cv::images::grayscale8u cv::toolbox::semantic_convert::to_grayscale8u(const cv::
         return cv::images::grayscale8u(img.clone());
     cv::images::grayscale8u result {};
     const double factor = greyscale_to_percentage(img) * 1.0 / greyscale_to_percentage(result);
-    img.convertTo(result, result.type(), factor);
+    img.convertTo(result, CV_8U, factor);
     return result;
 }
 
@@ -41,7 +41,7 @@ cv::images::grayscale16u cv::toolbox::semantic_convert::to_grayscale16u(const cv
         return cv::images::grayscale16u(img.clone());
     cv::images::grayscale16u result {};
     const double factor = greyscale_to_percentage(img) * 1.0 / greyscale_to_percentage(result);
-    img.convertTo(result, result.type(), factor);
+    img.convertTo(result, CV_16U, factor);
     return result;
 }
 
@@ -50,7 +50,7 @@ cv::images::grayscale16s cv::toolbox::semantic_convert::to_grayscale16s(const cv
         return cv::images::grayscale16s(img.clone());
     cv::images::grayscale16s result {};
     const double factor = greyscale_to_percentage(img) * 1.0 / greyscale_to_percentage(result);
-    img.convertTo(result, result.type(), factor);
+    img.convertTo(result, CV_16S, factor);
     return result;
 }
 
@@ -59,7 +59,7 @@ cv::images::grayscale32f cv::toolbox::semantic_convert::to_grayscale32f(const cv
         return cv::images::grayscale32f(img.clone());
     cv::images::grayscale32f result {};
     const double factor = greyscale_to_percentage(img) * 1.0 / greyscale_to_percentage(result);
-    img.convertTo(result, result.type(), factor);
+    img.convertTo(result, CV_32F, factor);
     return result;
 }
 
@@ -68,6 +68,6 @@ cv::images::grayscale64f cv::toolbox::semantic_convert::to_grayscale64f(const cv
         return cv::images::grayscale64f(img.clone());
     cv::images::grayscale64f result {};
     const double factor = greyscale_to_percentage(img) * 1.0 / greyscale_to_percentage(result);
-    img.convertTo(result, result.type(), factor);
+    img.convertTo(result, CV_64F, factor);
     return result;
 }
