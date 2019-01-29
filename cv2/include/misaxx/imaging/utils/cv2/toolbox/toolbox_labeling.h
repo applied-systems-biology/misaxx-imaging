@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include <misaxx/imaging/utils/cv2/static_types.h>
+#include <misaxx/imaging/utils/cv2/ReadableBMatTypes.h>
 #include <misaxx/imaging/utils/cv2/connectivity.h>
 #include <misaxx/imaging/utils/cv2/recoloring_map.h>
 #include <misaxx/imaging/utils/cv2/toolbox/toolbox_recoloring.h>

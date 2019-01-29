@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <misaxx/imaging/utils/cv2/static_types.h>
+#include <misaxx/imaging/utils/cv2/ReadableBMatTypes.h>
 
 namespace cv {
     template<typename T, class ...Rows> struct labeled_image_properties {
@@ -18,7 +18,7 @@ namespace cv {
             if(labels.size() != img.size())
                 throw std::runtime_error("Labels and labeled image must have same size!");
             for(int i = 0; i < labels.rows; ++i) {
-                const auto *row = labels.static_ptr(i);
+                const auto *row = labels[i];
                 const T* row2 = img.ptr<T>(i);
                 for(int j = 0; j < labels.cols; ++j) {
                     update<Rows...>(j, i, row[j], row2[j]);;

@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include <misaxx/imaging/utils/cv2/static_types.h>
+#include <misaxx/imaging/utils/cv2/ReadableBMatTypes.h>
 
 namespace cv::toolbox::morph {
 

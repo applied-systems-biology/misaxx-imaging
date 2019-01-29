@@ -4,11 +4,10 @@
 
 #include <misaxx/imaging/utils/cv2/BMat.h>
 
-cv::BMat::BMat(cv::Mat mat) : cv::Mat(std::move(mat)) {
+cv::BMat::BMat(const cv::Mat &mat) : cv::Mat(mat) {
 }
 
 cv::BMat::BMat(const cv::Size &size, int type, const cv::Scalar &init) : cv::Mat(size, type, init) {
-
 }
 
 void cv::BMat::swap() {
@@ -28,6 +27,10 @@ cv::BMat cv::BMat::allocate(const cv::Size &size, int type) {
 
 cv::Mat &cv::BMat::self() {
     return *this;
+}
+
+cv::BMat cv::BMat::clone() const {
+    return BMat(cv::Mat::clone());
 }
 
 

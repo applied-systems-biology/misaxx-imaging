@@ -208,7 +208,7 @@ void cv::toolbox::morph::hitmiss(cv::images::grayscale64f &img, const cv::images
 }
 
 namespace {
-    template<typename T> void close_holes_impl(cv::images::grayscale &img, const cv::images::mask &kernel, T black, T white) {
+    template<typename T> void close_holes_impl(cv::images::buffered &img, const cv::images::mask &kernel, T black, T white) {
 
         cv::Mat &img_buf = img.buffer(true);
         img_buf = black; // Set to "0"
@@ -217,7 +217,7 @@ namespace {
         std::stack<cv::Point> stack;
 
         for(int i = 0; i < kernel.rows; ++i) {
-            const auto *row = kernel.static_ptr(i);
+            const auto *row = kernel[i];
             for(int j = 0; j < kernel.cols; ++j) {
                 if(row[j] > 0) {
                     neighbors.emplace_back(cv::Point(j - kernel.cols / 2, i - kernel.rows / 2));

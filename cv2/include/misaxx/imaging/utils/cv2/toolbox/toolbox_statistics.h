@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include <misaxx/imaging/utils/cv2/static_types.h>
+#include <misaxx/imaging/utils/cv2/ReadableBMatTypes.h>
 #include <misaxx/imaging/utils/cv2/pixel.h>
 
 /**
@@ -19,11 +19,11 @@ namespace cv::toolbox {
 
 namespace cv::toolbox::statistics {
 
-    extern min_max_result min_max_loc(const images::grayscale &img);
+    extern min_max_result min_max_loc(const images::generic &img);
 
-    extern std::unordered_map<double, double> get_percentiles(const images::grayscale &img, const std::vector<double> &percentiles);
+    extern std::unordered_map<double, double> get_percentiles(const images::generic &img, const std::vector<double> &percentiles);
 
-    extern double get_percentile(const images::grayscale &img, double percentile);
+    extern double get_percentile(const images::generic &img, double percentile);
 }
 
 

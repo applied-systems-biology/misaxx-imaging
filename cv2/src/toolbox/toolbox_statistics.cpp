@@ -59,7 +59,7 @@ namespace {
     }
 }
 
-cv::toolbox::min_max_result cv::toolbox::statistics::min_max_loc(const cv::images::grayscale &img) {
+cv::toolbox::min_max_result cv::toolbox::statistics::min_max_loc(const cv::images::generic &img) {
     using namespace cv::toolbox;
     min_max_result result;
     cv::minMaxLoc(img, &result.min.value, &result.max.value, &result.min.location, &result.max.location);
@@ -67,33 +67,27 @@ cv::toolbox::min_max_result cv::toolbox::statistics::min_max_loc(const cv::image
 }
 
 std::unordered_map<double, double>
-cv::toolbox::statistics::get_percentiles(const cv::images::grayscale &img, const std::vector<double> &percentiles) {
-    if(is_dynamic_type<images::grayscale8u >(img)) {
-        return get_percentiles_impl<uchar>(img, percentiles);
-    }
-    else if(is_dynamic_type<images::grayscale8s >(img)) {
-        return get_percentiles_impl<char>(img, percentiles);
-    }
-    else if(is_dynamic_type<images::grayscale16u >(img)) {
-        return get_percentiles_impl<ushort>(img, percentiles);
-    }
-    else if(is_dynamic_type<images::grayscale16s >(img)) {
-        return get_percentiles_impl<short>(img, percentiles);
-    }
-    else if(is_dynamic_type<images::grayscale32s >(img)) {
-        return get_percentiles_impl<int>(img, percentiles);
-    }
-    else if(is_dynamic_type<images::grayscale32f >(img)) {
-        return get_percentiles_impl<float>(img, percentiles);
-    }
-    else if(is_dynamic_type<images::grayscale64f >(img)) {
-        return get_percentiles_impl<double>(img, percentiles);
-    }
-    else {
-        throw std::runtime_error("Unsupported image type!");
+cv::toolbox::statistics::get_percentiles(const cv::images::generic &img, const std::vector<double> &percentiles) {
+    switch(img.type()) {
+        case CV_8U:
+            return get_percentiles_impl<uchar>(img, percentiles);
+        case CV_8S:
+            return get_percentiles_impl<schar>(img, percentiles);
+        case CV_16U:
+            return get_percentiles_impl<ushort>(img, percentiles);
+        case CV_16S:
+            return get_percentiles_impl<short>(img, percentiles);
+        case CV_32S:
+            return get_percentiles_impl<int>(img, percentiles);
+        case CV_32F:
+            return get_percentiles_impl<float>(img, percentiles);
+        case CV_64F:
+            return get_percentiles_impl<double>(img, percentiles);
+        default:
+            throw std::runtime_error("Unsupported image type!");
     }
 }
 
-double cv::toolbox::statistics::get_percentile(const cv::images::grayscale &img, double percentile) {
+double cv::toolbox::statistics::get_percentile(const cv::images::generic &img, double percentile) {
     return get_percentiles(img, { percentile }).begin()->second;
 }

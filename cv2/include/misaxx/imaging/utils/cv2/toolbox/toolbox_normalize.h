@@ -5,10 +5,11 @@
 #pragma once
 
 
-#include <misaxx/imaging/utils/cv2/static_types.h>
+#include <misaxx/imaging/utils/cv2/ReadableBMatTypes.h>
 
 namespace cv::toolbox::normalize {
-    extern void by_max(images::grayscale32f &img);
+    extern void by_max(images::generic &img);
+    extern void by_min_max(images::generic &img);
 }
 
 

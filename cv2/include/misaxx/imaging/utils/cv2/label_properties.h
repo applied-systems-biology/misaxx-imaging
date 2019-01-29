@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <misaxx/imaging/utils/cv2/static_types.h>
+#include <misaxx/imaging/utils/cv2/ReadableBMatTypes.h>
 
 namespace cv {
     template<class ...Rows> struct label_properties {
@@ -17,7 +17,7 @@ namespace cv {
 
         explicit label_properties(const images::labels &labels) {
             for(int i = 0; i < labels.rows; ++i) {
-                const auto *row = labels.static_ptr(i);
+                const auto *row = labels[i];
                 for(int j = 0; j < labels.cols; ++j) {
                     update<Rows...>(j, i, row[j]);
                 }
