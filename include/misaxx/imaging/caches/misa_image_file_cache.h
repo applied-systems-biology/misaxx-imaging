@@ -8,12 +8,12 @@
 #include <misaxx/core/misa_cache.h>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
-#include <misaxx/imaging/coixx/toolbox/toolbox_io.h>
 #include <misaxx/core/misa_cache.h>
 #include <misaxx/imaging/patterns/misa_image_pattern.h>
 #include <misaxx/imaging/patterns/misa_image_stack_pattern.h>
 #include <misaxx/core/misa_default_cache.h>
 #include <misaxx/imaging/descriptions/misa_image_description.h>
+#include <opencv2/opencv.hpp>
 
 namespace misaxx::imaging {
 
@@ -47,14 +47,7 @@ namespace misaxx::imaging {
         }
 
         void pull() override {
-            if constexpr (std::is_same<cv::Mat, Image>::value) {
-                // Load it as cv::Mat
-                m_value = cv::imread(m_path.string(), cv::IMREAD_UNCHANGED);
-            }
-            else {
-                // Assume it's a coixx::image
-                m_value = coixx::toolbox::auto_load<Image>(m_path);
-            }
+            m_value = cv::imread(m_path.string(), cv::IMREAD_UNCHANGED);
         }
 
         void stash() override {
@@ -62,13 +55,7 @@ namespace misaxx::imaging {
         }
 
         void push() override {
-            if constexpr (std::is_same<cv::Mat, Image>::value) {
-                cv::imwrite(m_path.string(), m_value);
-            }
-            else {
-                using namespace coixx::toolbox;
-                m_value << save(m_path);
-            }
+            cv::imwrite(m_path.string(), m_value);
         }
 
         void do_link(const misa_image_description &t_description) override {
