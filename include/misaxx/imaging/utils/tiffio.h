@@ -8,6 +8,12 @@
 #include <boost/filesystem/path.hpp>
 
 namespace misaxx::imaging::utils {
+
+    enum class tiff_compression : unsigned short {
+        none = 1,
+        lzw = 5
+    };
+
     /**
      * Reads a cv::Mat from TIFF. Supports all types supported by OpenCV
      * @param t_path
@@ -20,7 +26,7 @@ namespace misaxx::imaging::utils {
      * @param t_img
      * @param t_path
      */
-    extern void tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path);
+    extern void tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path, tiff_compression t_compression = tiff_compression::none);
 }
 
 

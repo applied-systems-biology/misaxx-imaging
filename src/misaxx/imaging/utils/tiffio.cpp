@@ -95,7 +95,12 @@ void tiff_reader::read_row_(void *row_out, unsigned int y) {
 class tiff_writer {
 public:
 
-    explicit tiff_writer(const std::string &t_filename, const cv::Size &t_image_size, unsigned short t_num_samples, unsigned short t_depth, unsigned short t_sample_format);
+    explicit tiff_writer(const std::string &t_filename,
+            const cv::Size &t_image_size,
+            unsigned short t_num_samples,
+            unsigned short t_depth,
+            unsigned short t_sample_format,
+            unsigned short t_compression);
 
     ~tiff_writer();
 
@@ -116,13 +121,18 @@ private:
     tiff *m_tiff;
 };
 
-tiff_writer::tiff_writer(const std::string &t_filename, const cv::Size &t_image_size, unsigned short t_num_samples,
-                         unsigned short t_depth, unsigned short t_sample_format) : m_tiff(TIFFOpen(t_filename.c_str(), "w")) {
+tiff_writer::tiff_writer(const std::string &t_filename,
+        const cv::Size &t_image_size,
+        unsigned short t_num_samples,
+        unsigned short t_depth,
+        unsigned short t_sample_format,
+        unsigned short t_compression) : m_tiff(TIFFOpen(t_filename.c_str(), "w")) {
     TIFFSetField(m_tiff, TIFFTAG_IMAGEWIDTH, static_cast<uint32>(t_image_size.width));  // set the width of the image
     TIFFSetField(m_tiff, TIFFTAG_IMAGELENGTH, static_cast<uint32>(t_image_size.height));    // set the height of the image
     TIFFSetField(m_tiff, TIFFTAG_BITSPERSAMPLE, t_depth);
     TIFFSetField(m_tiff, TIFFTAG_SAMPLESPERPIXEL, t_num_samples);
     TIFFSetField(m_tiff, TIFFTAG_SAMPLEFORMAT, t_sample_format);
+    TIFFSetField(m_tiff, TIFFTAG_COMPRESSION, t_compression);
 }
 
 tiff_writer::~tiff_writer() {
@@ -187,7 +197,7 @@ cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) 
     return result;
 }
 
-void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path) {
+void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path, tiff_compression t_compression) {
     ushort num_samples = t_img.channels();
     ushort depth;
     ushort sample_format;
@@ -225,7 +235,7 @@ void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesy
             throw std::runtime_error("Unsupported depth!");
     }
 
-    tiff_writer writer {t_path.string(), t_img.size(), num_samples, depth, sample_format};
+    tiff_writer writer {t_path.string(), t_img.size(), num_samples, depth, sample_format, static_cast<ushort >(t_compression)};
     for(int row = 0; row < t_img.rows; ++row) {
         writer.write_row_(t_img.ptr(row), row);
     }
