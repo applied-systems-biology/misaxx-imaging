@@ -21,62 +21,34 @@ namespace misaxx::imaging {
      * A cache that holds an OpenCV cv::Mat or a coixx::image
      * @tparam Image
      */
-    template<class Image> class misa_image_file_cache : public misaxx::misa_default_cache<misaxx::utils::cache<Image>,
+    class misa_image_file_cache : public misaxx::misa_default_cache<misaxx::utils::cache<cv::Mat>,
             misa_image_pattern, misa_image_description> {
     public:
 
-        Image &get() override {
-            return m_value;
-        }
+        cv::Mat &get() override;
 
-        const Image &get() const override {
-            return m_value;
-        }
+        const cv::Mat &get() const override;
 
-        void set(Image value) override {
-            m_value = std::move(value);
-            m_has_value = true;
-        }
+        void set(cv::Mat value) override;
 
-        bool has() const override {
-            return m_has_value;
-        }
+        bool has() const override;
 
-        bool can_pull() const override {
-            return boost::filesystem::is_regular_file(m_path);
-        }
+        bool can_pull() const override;
 
-        void pull() override {
-            m_value = cv::imread(m_path.string(), cv::IMREAD_UNCHANGED);
-        }
+        void pull() override;
 
-        void stash() override {
-            m_value = Image();
-        }
+        void stash() override;
 
-        void push() override {
-            cv::imwrite(m_path.string(), m_value);
-        }
+        void push() override;
 
-        void do_link(const misa_image_description &t_description) override {
-            if(t_description.filename.empty())
-                throw std::runtime_error("Cannot link to file description with empty file name!");
-            m_path = this->get_location() / t_description.filename;
-            this->set_unique_location(m_path);
-        }
+        void do_link(const misa_image_description &t_description) override;
 
     protected:
 
-        misa_image_description produce_description(const boost::filesystem::path &t_location, const misa_image_pattern &t_pattern) override {
-            auto image = t_pattern.produce(t_location);
-            misa_image_description result;
-            result.filename = std::move(image.filename);
-            return result;
-        }
+        misa_image_description produce_description(const boost::filesystem::path &t_location, const misa_image_pattern &t_pattern) override;
 
     private:
-        Image m_value;
-        bool m_has_value = false;
+        cv::Mat m_value;
         boost::filesystem::path m_path;
     };
 }
