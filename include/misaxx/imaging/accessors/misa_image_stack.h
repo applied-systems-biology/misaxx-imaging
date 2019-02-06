@@ -12,14 +12,12 @@ namespace misaxx::imaging {
 
     /**
      * A simple stack of images
-     * @tparam Image cv::Mat or any of coixx::image<C>
      */
-    template<class Image>
-    struct misa_image_stack : public misaxx::misa_cached_data<misa_image_stack_cache<Image>>,
-                              public misaxx::misa_description_accessors_from_cache<misa_image_stack_cache<Image>, misa_image_stack<Image>> {
+    struct misa_image_stack : public misaxx::misa_cached_data<misa_image_stack_cache>,
+                              public misaxx::misa_description_accessors_from_cache<misa_image_stack_cache, misa_image_stack> {
 
-        using iterator = typename misa_image_stack_t<Image>::iterator;
-        using const_iterator = typename misa_image_stack_t<Image>::const_iterator;
+        using iterator = typename misa_image_stack_t::iterator;
+        using const_iterator = typename misa_image_stack_t::const_iterator;
 
         iterator begin() {
             return this->data->get().begin();
@@ -41,7 +39,7 @@ namespace misaxx::imaging {
             return this->data->get().find(t_name);
         }
 
-        misa_image_file<Image> at(const std::string &t_name) const {
+        misa_image_file at(const std::string &t_name) const {
             return this->data->get().at(t_name);
         }
 
