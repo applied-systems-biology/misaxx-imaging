@@ -45,9 +45,8 @@ namespace misaxx::imaging {
     protected:
 
         misa_image_stack_description produce_description(const boost::filesystem::path &t_location, const misa_image_stack_pattern &t_pattern) override {
-            auto stack = t_pattern.produce(t_location);
             misa_image_stack_description result;
-            result.files = std::move(stack.files);
+            t_pattern.apply(result, t_location);
             return result;
         }
 

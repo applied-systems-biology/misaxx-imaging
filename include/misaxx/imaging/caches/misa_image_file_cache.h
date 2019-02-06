@@ -68,9 +68,8 @@ namespace misaxx::imaging {
     protected:
 
         misa_image_description produce_description(const boost::filesystem::path &t_location, const misa_image_pattern &t_pattern) override {
-            auto image = t_pattern.produce(t_location);
             misa_image_description result;
-            result.filename = std::move(image.filename);
+            t_pattern.apply(result, t_location);
             return result;
         }
 
