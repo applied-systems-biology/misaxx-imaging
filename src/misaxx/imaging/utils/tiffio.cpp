@@ -5,6 +5,7 @@
 #include <misaxx/imaging/utils/tiffio.h>
 #include <tiff.h>
 #include <tiffio.h>
+#include <boost/filesystem.hpp>
 
 /**
      * RAII wrapper around libtiff
@@ -147,6 +148,19 @@ cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) 
     tiff_reader reader {t_path.string()};
     int opencv_type;
     switch(reader.get_sample_format()) {
+        case 0: // Default to UINT
+        case SAMPLEFORMAT_UINT:
+            switch(reader.get_depth()) {
+                case 8:
+                    opencv_type = CV_8UC(reader.get_num_samples());
+                    break;
+                case 16:
+                    opencv_type = CV_16UC(reader.get_num_samples());
+                    break;
+                default:
+                    throw std::runtime_error("Unsupported depth!");
+            }
+            break;
         case SAMPLEFORMAT_INT:
             switch(reader.get_depth()) {
                 case 8:
@@ -157,18 +171,6 @@ cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) 
                     break;
                 case 32:
                     opencv_type = CV_32SC(reader.get_num_samples());
-                    break;
-                default:
-                    throw std::runtime_error("Unsupported depth!");
-            }
-            break;
-        case SAMPLEFORMAT_UINT:
-            switch(reader.get_depth()) {
-                case 8:
-                    opencv_type = CV_8UC(reader.get_num_samples());
-                    break;
-                case 16:
-                    opencv_type = CV_16UC(reader.get_num_samples());
                     break;
                 default:
                     throw std::runtime_error("Unsupported depth!");
@@ -187,7 +189,7 @@ cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) 
             }
             break;
         default:
-            throw std::runtime_error("Unsupported TIFF sample format!");
+            throw std::runtime_error("Unsupported TIFF sample format " + std::to_string(reader.get_sample_format()));
     }
 
     cv::Mat result(reader.get_size(), opencv_type);
@@ -200,6 +202,9 @@ cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) 
 void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path, tiff_compression t_compression) {
 
     if(t_img.channels() > 1) {
+        if(boost::filesystem::exists(t_path)) {
+            boost::filesystem::remove(t_path);
+        }
         cv::imwrite(t_path.string(), t_img);
         return;
     }
