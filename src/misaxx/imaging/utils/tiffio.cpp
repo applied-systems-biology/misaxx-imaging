@@ -198,6 +198,12 @@ cv::Mat misaxx::imaging::utils::tiffread(const boost::filesystem::path &t_path) 
 }
 
 void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesystem::path &t_path, tiff_compression t_compression) {
+
+    if(t_img.channels() > 1) {
+        cv::imwrite(t_path.string(), t_img);
+        return;
+    }
+
     ushort num_samples = t_img.channels();
     ushort depth;
     ushort sample_format;
@@ -236,7 +242,13 @@ void misaxx::imaging::utils::tiffwrite(const cv::Mat &t_img, const boost::filesy
     }
 
     tiff_writer writer {t_path.string(), t_img.size(), num_samples, depth, sample_format, static_cast<ushort >(t_compression)};
-    for(int row = 0; row < t_img.rows; ++row) {
-        writer.write_row_(t_img.ptr(row), row);
+    if(num_samples == 1) {
+        for(int row = 0; row < t_img.rows; ++row) {
+            writer.write_row_(t_img.ptr(row), row);
+        }
     }
+    else {
+        throw std::runtime_error("Unsupported type!");
+    }
+
 }
