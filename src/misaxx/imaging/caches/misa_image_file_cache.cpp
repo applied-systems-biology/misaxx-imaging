@@ -42,8 +42,7 @@ void misaxx::imaging::misa_image_file_cache::do_link(const misaxx::imaging::misa
 misaxx::imaging::misa_image_description
 misaxx::imaging::misa_image_file_cache::produce_description(const boost::filesystem::path &t_location,
                                                             const misaxx::imaging::misa_image_pattern &t_pattern) {
-    auto image = t_pattern.produce(t_location);
     misa_image_description result;
-    result.filename = std::move(image.filename);
+    t_pattern.apply(result, t_location);
     return result;
 }

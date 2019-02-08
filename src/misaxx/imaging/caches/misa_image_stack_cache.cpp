@@ -17,8 +17,7 @@ misaxx::imaging::misa_image_stack_cache::do_link(const misaxx::imaging::misa_ima
 misaxx::imaging::misa_image_stack_description
 misaxx::imaging::misa_image_stack_cache::produce_description(const boost::filesystem::path &t_location,
                                                              const misaxx::imaging::misa_image_stack_pattern &t_pattern) {
-    auto stack = t_pattern.produce(t_location);
     misa_image_stack_description result;
-    result.files = std::move(stack.files);
+    t_pattern.apply(result, t_location);
     return result;
 }
