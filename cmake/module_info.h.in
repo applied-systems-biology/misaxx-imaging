@@ -5,9 +5,9 @@
 namespace misaxx::imaging {
     inline misaxx::misa_module_info module_info() {
         misaxx::misa_mutable_module_info info;
-        info.set_name("@PROJECT_NAME@");
+        info.set_id("@PROJECT_NAME@");
         info.set_version("@PROJECT_VERSION@");
-        info.set_description("@PROJECT_DESCRIPTION@");
+        info.set_name("@PROJECT_DESCRIPTION@");
         
         info.add_dependency(misaxx::module_info());
         return info;
