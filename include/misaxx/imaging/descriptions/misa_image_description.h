@@ -26,14 +26,6 @@ namespace misaxx::imaging {
     inline void from_json(const nlohmann::json& j, misa_image_description& p) {
         p.from_json(j);
     }
-
-    std::string misa_image_description::get_documentation_name() const {
-        return "Image";
-    }
-
-    std::string misa_image_description::get_documentation_description() const {
-        return "An image file";
-    }
 }
 
 
