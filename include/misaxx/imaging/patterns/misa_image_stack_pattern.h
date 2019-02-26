@@ -18,6 +18,10 @@ namespace misaxx::imaging {
 
         void from_json(const nlohmann::json &t_json) override;
 
+        std::string get_documentation_name() const override;
+
+        std::string get_documentation_description() const override;
+
     protected:
         void build_serialization_id_hierarchy(std::vector<misaxx::misa_serialization_id> &result) const override;
     };

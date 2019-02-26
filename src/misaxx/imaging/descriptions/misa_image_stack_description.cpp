@@ -9,3 +9,11 @@ void misaxx::imaging::misa_image_stack_description::build_serialization_id_hiera
     misa_file_stack_description::build_serialization_id_hierarchy(result);
     result.emplace_back(misaxx::misa_serialization_id("misa-imaging", "descriptions/image-stack"));
 }
+
+std::string misaxx::imaging::misa_image_stack_description::get_documentation_name() const {
+    return "Image stack";
+}
+
+std::string misaxx::imaging::misa_image_stack_description::get_documentation_description() const {
+    return "A list of image files";
+}

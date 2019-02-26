@@ -11,6 +11,10 @@ namespace misaxx::imaging {
     struct misa_image_pattern : public misaxx::misa_file_pattern {
         misa_image_pattern();
 
+        std::string get_documentation_name() const override;
+
+        std::string get_documentation_description() const override;
+
     protected:
         void build_serialization_id_hierarchy(std::vector<misaxx::misa_serialization_id> &result) const override;
     };

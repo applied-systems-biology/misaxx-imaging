@@ -10,6 +10,10 @@ namespace misaxx::imaging {
     struct misa_image_stack_description : public misaxx::misa_file_stack_description {
         using misaxx::misa_file_stack_description::misa_file_stack_description;
 
+        std::string get_documentation_name() const override;
+
+        std::string get_documentation_description() const override;
+
     protected:
         void build_serialization_id_hierarchy(std::vector<misaxx::misa_serialization_id> &result) const override;
     };
