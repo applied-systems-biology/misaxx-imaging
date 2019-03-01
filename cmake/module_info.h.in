@@ -23,6 +23,8 @@ namespace misaxx::imaging {
         opencv_info.set_citation("Bradski, Gary, and Adrian Kaehler. \"OpenCV.\" Dr. Dobb’s journal of software tools 3 (2000).");
         opencv_info.set_license("BSD-3-Clause");
         opencv_info.set_is_external(true);
+
+        info.add_dependency(misaxx::module_info());
         info.add_dependency(std::move(opencv_info));
 
         return info;
