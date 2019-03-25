@@ -28,7 +28,9 @@ add_library(misaxx-imaging
         src/misaxx/imaging/descriptions/misa_image_stack_description.cpp
         include/misaxx/imaging/descriptions/misa_image_stack_description.h
         src/misaxx/imaging/utils/tiffio.cpp
-        include/misaxx/imaging/utils/tiffio.h)
+        include/misaxx/imaging/utils/tiffio.h
+        include/misaxx/imaging/module_info.h
+        src/misaxx/imaging/module_info.cpp)
 
 set(MISAXX_LIBRARY misaxx-imaging)
 set(MISAXX_LIBRARY_NAMESPACE misaxx::)
