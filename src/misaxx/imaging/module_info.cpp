@@ -3,7 +3,7 @@
 #include <misaxx/imaging/module_info.h>
 
 misaxx::misa_module_info misaxx::imaging::module_info() {
-    misaxx::misa_mutable_module_info info;
+    misaxx::misa_module_info info;
     info.set_id("misaxx-imaging");
     info.set_version("1.0.0");
     info.set_name("MISA++ Imaging Support");
@@ -14,7 +14,7 @@ misaxx::misa_module_info misaxx::imaging::module_info() {
     info.set_url("https://asb-git.hki-jena.de/RGerst/misaxx-imaging/");
 
     // External dependency: OpenCV
-    misaxx::misa_mutable_module_info opencv_info;
+    misaxx::misa_module_info opencv_info;
     opencv_info.set_id("opencv");
     opencv_info.set_name("OpenCV");
     opencv_info.set_url("https://opencv.org/");
