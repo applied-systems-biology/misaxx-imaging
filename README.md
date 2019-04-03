@@ -30,5 +30,5 @@ You need a compiler capable of C++ version 2017 or higher to compile MISA++ Imag
 
 # Building
 
-MISA++ core uses the [CMake](https://cmake.org/) build system and requires no
+The project uses the [CMake](https://cmake.org/) build system and requires no
 additional build instructions that differ from the standard CMake building process.
