@@ -1,3 +1,15 @@
+# /**
+# * Copyright by Ruman Gerst
+# * Research Group Applied Systems Biology - Head: Prof. Dr. Marc Thilo Figge
+# * https://www.leibniz-hki.de/en/applied-systems-biology.html
+# * HKI-Center for Systems Biology of Infection
+# * Leibniz Institute for Natural Product Research and Infection Biology - Hans Knöll Insitute (HKI)
+# * Adolf-Reichwein-Straße 23, 07745 Jena, Germany
+# *
+# * This code is licensed under BSD 2-Clause
+# * See the LICENSE file provided with this code for the full license.
+# */
+
 cmake_minimum_required(VERSION 3.11)
 project(misaxx-imaging VERSION 0.1.0 DESCRIPTION "MISA++ Imaging Core")
 
@@ -28,7 +40,9 @@ add_library(misaxx-imaging
         src/misaxx/imaging/descriptions/misa_image_stack_description.cpp
         include/misaxx/imaging/descriptions/misa_image_stack_description.h
         src/misaxx/imaging/utils/tiffio.cpp
-        include/misaxx/imaging/utils/tiffio.h)
+        include/misaxx/imaging/utils/tiffio.h
+        include/misaxx/imaging/module_info.h
+        src/misaxx/imaging/module_info.cpp)
 
 set(MISAXX_LIBRARY misaxx-imaging)
 set(MISAXX_LIBRARY_NAMESPACE misaxx::)

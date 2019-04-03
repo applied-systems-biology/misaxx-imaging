@@ -1,12 +1,24 @@
-#include <misaxx/core/misa_mutable_module_info.h>
+/**
+ * Copyright by Ruman Gerst
+ * Research Group Applied Systems Biology - Head: Prof. Dr. Marc Thilo Figge
+ * https://www.leibniz-hki.de/en/applied-systems-biology.html
+ * HKI-Center for Systems Biology of Infection
+ * Leibniz Institute for Natural Product Research and Infection Biology - Hans Knöll Insitute (HKI)
+ * Adolf-Reichwein-Straße 23, 07745 Jena, Germany
+ *
+ * This code is licensed under BSD 2-Clause
+ * See the LICENSE file provided with this code for the full license.
+ */
+
+#include <misaxx/core/misa_module_info.h>
 #include <misaxx/core/module_info.h>
 #include <misaxx/imaging/module_info.h>
 
 misaxx::misa_module_info misaxx::imaging::module_info() {
-    misaxx::misa_mutable_module_info info;
-    info.set_id("@PROJECT_NAME@");
-    info.set_version("@PROJECT_VERSION@");
-    info.set_name("@PROJECT_DESCRIPTION@");
+    misaxx::misa_module_info info;
+    info.set_id("misaxx-imaging");
+    info.set_version("1.0.0");
+    info.set_name("MISA++ Imaging Support");
     info.set_description("Support for OpenCV");
     info.add_author("Ruman Gerst");
     info.set_license("BSD-2-Clause");
@@ -14,7 +26,7 @@ misaxx::misa_module_info misaxx::imaging::module_info() {
     info.set_url("https://asb-git.hki-jena.de/RGerst/misaxx-imaging/");
 
     // External dependency: OpenCV
-    misaxx::misa_mutable_module_info opencv_info;
+    misaxx::misa_module_info opencv_info;
     opencv_info.set_id("opencv");
     opencv_info.set_name("OpenCV");
     opencv_info.set_url("https://opencv.org/");

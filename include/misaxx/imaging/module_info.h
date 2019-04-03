@@ -11,18 +11,8 @@
  */
 
 #pragma once
+#include <misaxx/core/module_info.h>
 
-namespace misaxx::imaging::utils {
-
-    /**
-     * Cantor pairing function that transforms two natural numbers into a unique numerical representation of those numbers.
-     * @tparam T
-     * @param x
-     * @param y
-     * @return
-     */
-    template<class T> T cantor_pairing(T x, T y) {
-        return static_cast<T>(y + 0.5 * (x + y) * (x + y + 1));
-    }
-
+namespace misaxx::imaging {
+    extern misaxx::misa_module_info module_info();
 }
