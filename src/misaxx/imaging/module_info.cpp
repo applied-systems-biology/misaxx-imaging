@@ -17,7 +17,7 @@
 misaxx::misa_module_info misaxx::imaging::module_info() {
     misaxx::misa_module_info info;
     info.set_id("misaxx-imaging");
-    info.set_version("1.0.0");
+    info.set_version("1.0.1");
     info.set_name("MISA++ Imaging Support");
     info.set_description("Support for OpenCV");
     info.add_author("Ruman Gerst");
