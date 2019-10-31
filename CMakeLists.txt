@@ -16,7 +16,9 @@ project(misaxx-imaging VERSION 0.1.0 DESCRIPTION "MISA++ Imaging Core")
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 find_package(misaxx-core REQUIRED)
-find_package(OpenCV 4 COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
+
+# The library accepts any OpenCV version newer than 3.0
+find_package(OpenCV COMPONENTS core imgproc ximgproc imgcodecs highgui)
 find_package(TIFF REQUIRED)
 
 add_library(misaxx-imaging
