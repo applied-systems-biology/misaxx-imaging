@@ -60,3 +60,13 @@ target_link_libraries(misaxx-imaging PUBLIC ${OpenCV_LIBS}
         ${TIFF_LIBRARIES}
         misaxx::misaxx-core)
 
+# Debian package creation
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_DEBIAN_PACKAGE_NAME "libmisaxx-imaging")
+SET(CPACK_DEBIAN_PACKAGE_VERSION "1.0.0.1")
+SET(CPACK_DEBIAN_PACKAGE_RELEASE "1")
+SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "MISA++ framework OpenCV integration library")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Ruman Gerst")
+SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://applied-systems-biology.github.io/misa-framework/")
+SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+INCLUDE(CPack)
