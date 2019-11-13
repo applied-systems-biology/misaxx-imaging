@@ -13,7 +13,7 @@
 @PACKAGE_INIT@
 
 find_package(misaxx-core REQUIRED)
-find_package(OpenCV 3 COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
+find_package(OpenCV COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
 
 if(NOT TARGET misaxx-imaging)
 include(${CMAKE_CURRENT_LIST_DIR}/misaxx-imaging-targets.cmake)

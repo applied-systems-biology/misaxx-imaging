@@ -11,12 +11,14 @@
 # */
 
 cmake_minimum_required(VERSION 3.11)
-project(misaxx-imaging VERSION 0.1.0 DESCRIPTION "MISA++ Imaging Core")
+project(misaxx-imaging VERSION 1.0.0.1 DESCRIPTION "MISA++ Imaging Core")
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 find_package(misaxx-core REQUIRED)
-find_package(OpenCV 3 COMPONENTS REQUIRED core imgproc ximgproc imgcodecs highgui)
+
+# The library accepts any OpenCV version newer than 3.0
+find_package(OpenCV COMPONENTS core imgproc ximgproc imgcodecs highgui)
 find_package(TIFF REQUIRED)
 
 add_library(misaxx-imaging
@@ -58,3 +60,13 @@ target_link_libraries(misaxx-imaging PUBLIC ${OpenCV_LIBS}
         ${TIFF_LIBRARIES}
         misaxx::misaxx-core)
 
+# Debian package creation
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_DEBIAN_PACKAGE_NAME "libmisaxx-imaging")
+SET(CPACK_DEBIAN_PACKAGE_VERSION "1.0.0.1")
+SET(CPACK_DEBIAN_PACKAGE_RELEASE "1")
+SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "MISA++ framework OpenCV integration library")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Ruman Gerst")
+SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://applied-systems-biology.github.io/misa-framework/")
+SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+INCLUDE(CPack)
