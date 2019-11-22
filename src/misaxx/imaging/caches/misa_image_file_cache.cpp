@@ -11,6 +11,7 @@
  */
 
 #include <misaxx/imaging/caches/misa_image_file_cache.h>
+#include <misaxx/imaging/utils/tiffio.h>
 
 cv::Mat &misaxx::imaging::misa_image_file_cache::get() {
     return m_value;
@@ -33,7 +34,12 @@ bool misaxx::imaging::misa_image_file_cache::can_pull() const {
 }
 
 void misaxx::imaging::misa_image_file_cache::pull() {
-    m_value = cv::imread(m_path.string(), cv::IMREAD_UNCHANGED);
+    if(m_path.has_extension() && (m_path.extension().string() == ".tif" || m_path.extension().string() == ".tiff")) {
+        m_value = misaxx::imaging::utils::tiffread(m_path);
+    }
+    else {
+        m_value = cv::imread(m_path.string(), cv::IMREAD_UNCHANGED);
+    }
 }
 
 void misaxx::imaging::misa_image_file_cache::stash() {
@@ -41,7 +47,12 @@ void misaxx::imaging::misa_image_file_cache::stash() {
 }
 
 void misaxx::imaging::misa_image_file_cache::push() {
-    cv::imwrite(m_path.string(), m_value);
+    if(m_path.has_extension() && (m_path.extension().string() == ".tif" || m_path.extension().string() == ".tiff")) {
+        misaxx::imaging::utils::tiffwrite(m_value, m_path, utils::tiff_compression::lzw);
+    }
+    else {
+        cv::imwrite(m_path.string(), m_value);
+    }
 }
 
 void misaxx::imaging::misa_image_file_cache::do_link(const misaxx::imaging::misa_image_description &t_description) {

@@ -17,7 +17,7 @@
 misaxx::misa_module_info misaxx::imaging::module_info() {
     misaxx::misa_module_info info;
     info.set_id("misaxx-imaging");
-    info.set_version("1.0.1");
+    info.set_version("1.0.1.0");
     info.set_name("MISA++ Imaging Support");
     info.set_description("Support for OpenCV");
     info.add_author("Ruman Gerst");
@@ -35,8 +35,18 @@ misaxx::misa_module_info misaxx::imaging::module_info() {
     opencv_info.set_license("BSD-3-Clause");
     opencv_info.set_is_external(true);
 
+    // External dependency: OpenCV
+    misaxx::misa_module_info libtiff_info;
+    libtiff_info.set_id("libtiff");
+    libtiff_info.set_name("LibTiff");
+    libtiff_info.set_url("http://www.libtiff.org/");
+    libtiff_info.set_authors({"Sam Leffler", "Frank Warmerdam", "Andrey Kiselev", "Mike Welles", "Dwight Kelly"});
+    libtiff_info.set_license("BSD");
+    libtiff_info.set_is_external(true);
+
     info.add_dependency(misaxx::module_info());
     info.add_dependency(std::move(opencv_info));
+    info.add_dependency(std::move(libtiff_info));
 
     return info;
 }

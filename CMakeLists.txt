@@ -11,7 +11,7 @@
 # */
 
 cmake_minimum_required(VERSION 3.11)
-project(misaxx-imaging VERSION 1.0.0.1 DESCRIPTION "MISA++ Imaging Core")
+project(misaxx-imaging VERSION 1.0.1.0 DESCRIPTION "MISA++ Imaging Core")
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
